@@ -1,24 +1,11 @@
 <nav class="navbar navbar-expand navbar-dark bg-dark px-2">
-  <div class="side-nav-button p-2 me-3 text-light" (click)="SideNavToggle()">
+  <div class="side-nav-button p-2 me-3  text-light" (click)="SideNavToggle()">
     <i class="fa-solid fa-bars"></i>
   </div>
-
-  <a class="navbar-brand px-4" href="#">APP NAVBAR</a>
-
-  <form class="d-flex me-5">
-    <input class="form-control me-2" type="search" placeholder="Search">
-    <button class="btn btn-outline-light">Search</button>
+  <div class="container-fluid">
+    <a class="navbar-brand px-4" href="#">APP NAVBAR</a>
+    <form class="d-flex" role="auth">
+      <a routerLink="/sign-out" class="float-right signout mr-2">Sign Out</a>
   </form>
-
-
-  <div class="dropdown show">
-    <a class="btn btn-outline-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Dropdown link
-    </a>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-      <a class="dropdown-item" href="#">Sign in</a>
-      <a class="dropdown-item" href="#">Sign out</a>
-    </div>
   </div>
-
 </nav>

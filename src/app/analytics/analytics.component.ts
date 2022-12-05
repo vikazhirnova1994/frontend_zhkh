@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./analytics.component.css']
 })
 export class AnalyticsComponent implements OnInit {
-
+  title = 'navBarDarkMode';
+  sideNavStatus: boolean = false;
   constructor() { }
 
   ngOnInit(): void {

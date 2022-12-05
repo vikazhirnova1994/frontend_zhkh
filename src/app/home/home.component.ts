@@ -7,6 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
+  title = 'navBarDarkMode';
+  sideNavStatus: boolean = false;
+  sideNavSelected: string = "";
+
   constructor() { }
 
   ngOnInit(): void {

@@ -7,23 +7,22 @@
           <h6>Please, enter email & password !!</h6>
         </div>
         <form>
-          <form [formGroup]="signupForm" (ngSubmit)="signUp()" )>
+          <form [formGroup]="signupForm" (ngSubmit)="signUp()">
             <div class="mb-3">
-              <label for="exampleInputFullName" class="form-label">Full Name</label>
-              <input formControlName="fullname" type="text" class="form-control" id="exampleInputFullName" >
-            </div>
-            <div class="mb-3">
-              <label for="exampleInputMobileNumber" class="form-label">Mobile Number</label>
-              <input formControlName="mobile" type="text" class="form-control" id="exampleInputMobileNumber" >
+              <label for="exampleInputUsername" class="form-label">Full Name</label>
+              <input [formControlName]="'username'" type="text" class="form-control" id="exampleInputUsername" >
+              <span *ngIf="!signupForm.get('username').valid && signupForm.get('username').touched" class="help-block">Please enter a valid username</span>
             </div>
             <div class="mb-3">
               <label for="exampleInputEmail" class="form-label">Email address</label>
-              <input formControlName="email" type="email" class="form-control" id="exampleInputEmail" aria-describedby="emailHelp">
+              <input [formControlName]="'email'" type="email" class="form-control" id="exampleInputEmail" aria-describedby="emailHelp">
+              <span *ngIf="!signupForm.get('email').valid && signupForm.get('email').touched" class="help-block">Please enter a valid email</span>
               <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
             </div>
             <div class="mb-3">
               <label for="exampleInputPassword" class="form-label">Password</label>
-              <input formControlName="password" type="password" class="form-control" id="exampleInputPassword">
+              <input [formControlName]="'password'" type="password" class="form-control" id="exampleInputPassword">
+              <span *ngIf="!signupForm.get('password').valid && signupForm.get('password').touched" class="help-block">Please enter a valid password</span>
             </div>
             <button type="submit" class="btn btn-primary mb-2">Submit</button>
           </form>

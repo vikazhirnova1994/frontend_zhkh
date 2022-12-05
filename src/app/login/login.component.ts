@@ -10,20 +10,21 @@ import {Router} from "@angular/router";
 })
 export class LoginComponent implements OnInit {
 
-  public loginForm !: FormGroup;
+ // public loginForm !: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient, private router: Router) { }
+//  constructor(private formBuilder: FormBuilder, private http: HttpClient, private router: Router) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.loginForm = this.formBuilder.group(
+    /*this.loginForm = this.formBuilder.group(
       {
         email: [''],
         password: [''],
       }
-    )
+    )*/
   }
 
-  login() {
+/*  login() {
     this.http.get<any>("http://localhost:8081/login")
       .subscribe(res=> {
         const user = res.find((a:any)=> {
@@ -39,5 +40,5 @@ export class LoginComponent implements OnInit {
       }, err=> {
         alert("Something went wrong!!");
       });
-  }
+  }*/
 }
