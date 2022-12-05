@@ -6,8 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./setting.component.css']
 })
 export class SettingComponent implements OnInit {
-  title = 'navBarDarkMode';
-  sideNavStatus: boolean = false;
+
   constructor() { }
 
   ngOnInit(): void {
