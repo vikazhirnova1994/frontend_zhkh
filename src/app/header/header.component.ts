@@ -25,13 +25,13 @@ export class HeaderComponent implements OnInit {
     this.isLoggedIn = this.storageService.isLoggedIn();
 
     if (this.isLoggedIn) {
-      const user = this.storageService.getUser();
-      this.roles = user.roles;
+      const user = this.storageService.getUsername();
+     // this.roles = user.roles;
 
-      this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
-      this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
+    //  this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
+     // this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
 
-      this.username = user.username;
+      this.username = user;
     }
   }
 

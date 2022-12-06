@@ -1,1 +1,9 @@
-
+.add-btn {
+  width: fit-content;
+  margin: auto;
+  margin-top: 20px;
+}
+.ag-grid-angular {
+  height: 600px;
+  width: 50%;
+}

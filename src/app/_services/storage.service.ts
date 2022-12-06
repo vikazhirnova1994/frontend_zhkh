@@ -1,36 +1,65 @@
 import {Injectable} from '@angular/core';
 
-const USER_KEY = 'auth-user';
+const TOKEN_KEY = 'AuthToken';
+const USERNAME_KEY = 'AuthUsername';
+const AUTHORITIES_KEY = 'AuthAuthorities';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StorageService {
 
+  private roles: Array<string> = [];
+
   constructor() { }
 
+  signOut() {
+    window.sessionStorage.clear();
+  }
+
+  public saveToken(token: string) {
+    window.sessionStorage.removeItem(TOKEN_KEY);
+    window.sessionStorage.setItem(TOKEN_KEY,  token);
+  }
+
+  public getToken(): string {
+    return sessionStorage.getItem(TOKEN_KEY);
+  }
+
+  public saveUsername(username: string) {
+    window.sessionStorage.removeItem(USERNAME_KEY);
+    window.sessionStorage.setItem(USERNAME_KEY, username);
+  }
+
+  public getUsername(): string {
+    return sessionStorage.getItem(USERNAME_KEY);
+  }
   clean(): void {
     window.sessionStorage.clear();
   }
 
-  public saveUser(user: any): void {
-    window.sessionStorage.removeItem(USER_KEY);
-    window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
-  }
-
-  public getUser(): any {
-    const user = window.sessionStorage.getItem(USER_KEY);
-    if (user) {
-      return JSON.parse(user);
-    }
-    return {};
-  }
-
   public isLoggedIn(): boolean {
-    const user = window.sessionStorage.getItem(USER_KEY);
+    const user = window.sessionStorage.getItem(USERNAME_KEY);
     if (user) {
       return true;
     }
     return false;
   }
+/* public saveAuthorities(authorities: string[]) {
+    console.log('saveAuthorities');
+    console.log(authorities);
+    window.sessionStorage.removeItem(AUTHORITIES_KEY);
+    window.sessionStorage.setItem(AUTHORITIES_KEY, JSON.stringify(authorities));
+  }
+
+  public getAuthorities(): string[] {
+    this.roles = [];
+
+    if (sessionStorage.getItem(TOKEN_KEY)) {
+      console.log('test');
+      console.log(sessionStorage.getItem(AUTHORITIES_KEY));
+      JSON.parse(sessionStorage.getItem(AUTHORITIES_KEY)).forEach( auth => { this.roles.push(auth); });
+    }
+    return this.roles;
+  }*/
 }

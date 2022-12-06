@@ -14,8 +14,9 @@ import {LoginComponent} from './login/login.component';
 import {SignupComponent} from './signup/signup.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
-
-//import {httpInterceptorProviders} from "./_helpers/http.interceptor";
+import {httpInterceptorProviders} from "./_helpers/http.interceptor";
+import { CellCustomComponent } from './cell-custom/cell-custom.component';
+import {AgGridModule} from "ag-grid-angular";
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import {HttpClientModule} from "@angular/common/http";
     AboutComponent,
     LoginComponent,
     SignupComponent,
+    CellCustomComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,10 +38,10 @@ import {HttpClientModule} from "@angular/common/http";
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AgGridModule,
   ],
-  providers: [],
-    //httpInterceptorProviders],
+  providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule {
