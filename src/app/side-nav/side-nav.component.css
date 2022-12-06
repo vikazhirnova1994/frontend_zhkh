@@ -22,8 +22,11 @@
   height: 60px;
 }
 .nav-list-open .nav-list-item:hover{
-  background-color: rgba(255,255,255,0.3);
+  background-color: rgba(75,255,255,0.3);
   border-radius: 10px;
+}
+.nav-list-item[aria-selected="true"] {
+  background: #76b900 !important;
 }
 
 .nav-list-item i {

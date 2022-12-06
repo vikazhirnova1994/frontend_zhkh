@@ -1,12 +1,12 @@
 <nav class="navbar navbar-expand navbar-dark bg-dark px-2">
   <div class="container-fluid">
-    <div class="side-nav-button p-2 me-3  text-light" (click)="SideNavToggle()">
+    <div *ngIf="isLoggedIn" class="side-nav-button p-2 me-3  text-light" (click)="SideNavToggle()">
       <i class="fa-solid fa-bars"></i>
     </div>
     <a class="navbar-brand px-4" href="/">APP NAVBAR</a>
     <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
       <li class="nav-item">
-        <a href="/register" class="nav-link" routerLink="register">Sign Up</a>
+        <a href="/sign-up" class="nav-link" routerLink="sign-up">Sign Up</a>
       </li>
       <li class="nav-item">
         <a href="/login" class="nav-link" routerLink="login">Login</a>
@@ -21,10 +21,6 @@
         <a href class="nav-link" (click)="logout()">LogOut</a>
       </li>
     </ul>
-
-  <!--  <form class="d-flex" role="auth">
-      <a routerLink="/sign-out" class="float-right signout mr-2">Sign Out</a>
-  </form>-->
   </div>
 </nav>
 <!-- <nav class="navbar navbar-expand navbar-dark bg-dark">

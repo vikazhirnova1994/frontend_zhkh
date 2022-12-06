@@ -3,31 +3,9 @@
     <div class="col-md-6">
       <div class="card">
         <div class="text-center">
-          <h1>Login</h1>
-          <h6>Please, enter email & password !!</h6>
+          <h1 style="color: aliceblue">Register</h1>
         </div>
         <form>
-         <!-- <form *ngIf="!isSuccessful" [formGroup]="signupForm" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
-            <div class="mb-3">
-              <label for="exampleInputUsername" class="form-label">Full Name</label>
-              <input [formControlName]="'username'" type="text" class="form-control" id="exampleInputUsername"  required minlength="3" maxlength="20" >
-              <span *ngIf="!signupForm.get('username').valid && signupForm.get('username').touched" class="help-block">Please enter a valid username</span>
-            </div>
-            <div class="mb-3">
-              <label for="exampleInputEmail" class="form-label">Email address</label>
-              <input [formControlName]="'email'" type="email" class="form-control" id="exampleInputEmail" aria-describedby="emailHelp" required email>
-              <span *ngIf="!signupForm.get('email').valid && signupForm.get('email').touched" class="help-block">Please enter a valid email</span>
-              <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-            </div>
-            <div class="mb-3">
-              <label for="exampleInputPassword" class="form-label">Password</label>
-              <input [formControlName]="'password'" type="password" class="form-control" id="exampleInputPassword" required minlength="6">
-              <span *ngIf="!signupForm.get('password').valid && signupForm.get('password').touched" class="help-block">Please enter a valid password (must be at least 6 characters)</span>
-            </div>
-            <button type="submit" class="btn btn-primary mb-2">Submit</button>
-
-            <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">  Signup failed!<br />{{ errorMessage }}  </div>
-          </form>-->
           <form *ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
             <div class="form-group">
               <label for="username">Username</label>
@@ -50,28 +28,23 @@
             </div>
             <div class="form-group">
               <label for="password">Password</label>
-              <input
-                type="password" class="form-control" name="password" id="password" [(ngModel)]="form.password" required minlength="6"  #password="ngModel"   [ngClass]="{ 'is-invalid': f.submitted && password.errors }"/>
+              <input type="password" class="form-control" name="password" id="password" [(ngModel)]="form.password"
+                     required minlength="6"  #password="ngModel"   [ngClass]="{ 'is-invalid': f.submitted && password.errors }"/>
               <div class="invalid-feedback" *ngIf="password.errors && f.submitted">
                 <div *ngIf="password.errors['required']">Password is required</div>
                 <div *ngIf="password.errors['minlength']"> Password must be at least 6 characters </div>
               </div>
             </div>
             <div class="form-group">
-            <!-- <button class="btn btn-primary btn-block">Sign Up</button>-->
               <button type="submit" class="btn btn-primary mb-2">Sign Up</button>
             </div>
-
             <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
               Signup failed!<br />{{ errorMessage }}
             </div>
           </form>
-
         </form>
-        <a style="color: white" routerLink="/login" >Already register? Click to login!!</a>
-
+        <a style="color: white" routerLink="/login" >Already register? Click to login!</a>
         <div class="alert alert-success" *ngIf="isSuccessful"> Your registration is successful! </div>
-
       </div>
     </div>
   </div>

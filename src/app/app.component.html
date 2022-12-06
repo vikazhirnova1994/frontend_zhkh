@@ -1,15 +1,32 @@
-<div class="container-fluid g-0">
+<div>
   <app-header (sideNavToggled)="sideNavStatus = $event;"></app-header>
   <main>
-    <app-side-nav *ngIf="isLoggedIn" [sideNavStatus]="sideNavStatus" [ngClass]="{'app-side-nav-open': sideNavStatus}"
+   <app-side-nav *ngIf="isLoggedIn" [sideNavStatus]="sideNavStatus" [ngClass]="{'app-side-nav-open': sideNavStatus}"
                   (selectedMenuEmit)="sideNavSelected = $event;">
     </app-side-nav>
     <div class="display-area p-3" [ngClass]="{'display-area-shrink' : sideNavStatus}">
+      <router-outlet></router-outlet>
+    </div>
+
+    <!--<div class="display-area p-3" [ngClass]="{'display-area-shrink' : sideNavStatus}">
       <div class="tabs" *ngIf="sideNavSelected == 'home'"> this is home</div>
       <div class="tabs" *ngIf="sideNavSelected == 'analytics'"> this is analytics</div>
       <div class="tabs" *ngIf="sideNavSelected == 'setting'"> this is setting</div>
       <div class="tabs" *ngIf="sideNavSelected == 'about'"> this is about</div>
-    </div>
+    </div>-->
   </main>
-  <router-outlet></router-outlet>
+
+  <!--<div class="display-area p-3" [ngClass]="{'display-area-shrink' : sideNavStatus}">
+    <div class="tabs" *ngIf="sideNavSelected == 'home'">
+      this is home</div>
+    <div class="tabs" *ngIf="sideNavSelected == 'analytics'">
+      this is analytics</div>
+    <div class="tabs" *ngIf="sideNavSelected == 'setting'">
+      this is setting</div>
+    <div class="tabs" *ngIf="sideNavSelected == 'about'">
+      this is about</div>
+  </div>-->
+  <!--  <div class="display-area p-3" [ngClass]="{'display-area-shrink' : sideNavStatus}" >
+     <router-outlet></router-outlet>
+   </div>-->
 </div>

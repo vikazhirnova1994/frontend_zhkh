@@ -3,8 +3,7 @@
     <div class="col-md-6">
       <div class="card">
         <div class="text-center">
-          <h1>Login</h1>
-          <h6>Please, enter email & password !!</h6>
+          <h1 style="color: aliceblue">Login</h1>
         </div>
         <form>
           <form *ngIf="!isLoggedIn" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate >
@@ -29,13 +28,15 @@
             <div class="form-group">
               <div *ngIf="f.submitted && isLoginFailed" class="alert alert-danger" role="alert">  Login failed: {{ errorMessage }}   </div>
             </div>
+            <a style="color: white" routerLink="/sign-up" >New user? Click to signup!</a>
+
           </form>
 
         </form>
 
-        <a style="color: white" routerLink="/sign-up" >New user? Click to signup!!</a>
 
         <div class="alert alert-success" *ngIf="isLoggedIn">  Logged in as {{ roles }} </div>
+        <button *ngIf="isLoggedIn" type="submit" class="btn btn-primary mb-2" routerLink="/home">  Перейти на главную страницу  </button>
       </div>
     </div>
   </div>

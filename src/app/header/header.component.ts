@@ -1,6 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {StorageService} from "../_services/storage.service";
 import {AuthService} from "../_services/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -18,7 +19,7 @@ export class HeaderComponent implements OnInit {
   showModeratorBoard = false;
   username?: string;
 
-  constructor(private storageService: StorageService, private authService: AuthService) { }
+  constructor(private storageService: StorageService, private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.isLoggedIn = this.storageService.isLoggedIn();
@@ -45,7 +46,8 @@ export class HeaderComponent implements OnInit {
         console.log(res);
         this.storageService.clean();
 
-        window.location.reload();
+        this.router.navigate(['/']);
+       // window.location.reload();
       },
       error: err => {
         console.log(err);

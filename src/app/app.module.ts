@@ -15,6 +15,9 @@ import {SignupComponent} from './signup/signup.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 
+//import {httpInterceptorProviders} from "./_helpers/http.interceptor";
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,6 +39,7 @@ import {HttpClientModule} from "@angular/common/http";
     AppRoutingModule
   ],
   providers: [],
+    //httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule {
