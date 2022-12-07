@@ -1,6 +1,37 @@
 <div class="container">
-about works!
-  <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#addModal">Добавить квартиру</button>
+  about works!
+  <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#addModal">Добавить
+    квартиру
+  </button>
+</div>
+
+<div class="container mt-2">
+  <table class="table table-hover table-striped table-responsive">
+    <thead>
+    <tr>
+      <th>city</th>
+      <th>street</th>
+      <th>houseNumber</th>
+      <th>entrance</th>
+      <th>flatNumber</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of flatDetailsModel">
+      <td>{{item.city}}</td>
+      <td>{{item.street}}</td>
+      <td>{{item.houseNumber}}</td>
+      <td>{{item.entrance}}</td>
+      <td>{{item.flatNumber}}</td>
+
+      <td>
+      <button (click)="edit(item)" data-bs-toggle="modal" data-bs-target="#addModal" class="btn btn-sm btn-warning text-white mx-2">Edit</button>
+
+        <button (click)="deleteFlat(item.id)" class="btn btn-sm btn-danger">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
 </div>
 
 <!-- Modal -->
@@ -12,35 +43,38 @@ about works!
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form [formGroup]="flatForm" >
+        <form [formGroup]="flatForm">
           <div class="mb-3">
             <label for="city" class="form-label">Город</label>
-            <input type="text" formControlName ="city"  class="form-control" id="city" aria-describedby="serialNumberHelp">
+            <input type="text" formControlName="city" class="form-control" id="city"
+                   aria-describedby="serialNumberHelp">
           </div>
           <div class="mb-3">
             <label for="street" class="form-label">Улица</label>
-            <input type="text" formControlName = "street" class="form-control" id="street">
+            <input type="text" formControlName="street" class="form-control" id="street">
           </div>
           <div class="mb-3">
             <label for="houseNumber" class="form-label">Номер дома</label>
-            <input type="text" formControlName = "houseNumber" class="form-control" id="houseNumber">
+            <input type="number" formControlName="houseNumber" class="form-control" id="houseNumber">
           </div>
           <div class="mb-3">
             <label for="entrance" class="form-label">Номер подъезда</label>
-            <input type="text" formControlName = "entrance" class="form-control" id="entrance">
+            <input type="number" formControlName="entrance" class="form-control" id="entrance">
           </div>
           <div class="mb-3">
             <label for="flatNumber" class="form-label">Номер квартиры</label>
-            <input type="text" formControlName = "flatNumber" class="form-control" id="flatNumber">
+            <input type="number" formControlName="flatNumber" class="form-control" id="flatNumber">
           </div>
           <div class="mb-3 form-check">
             <input type="checkbox" class="form-check-input" id="exampleCheck1">
             <label class="form-check-label" for="exampleCheck1">Check me out</label>
           </div>
         </form>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-        <button type="button" class="btn btn-primary">Сохранить</button>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close" >Закрыть</button>
+          <button type="button" class="btn btn-primary" (click)="updateFlatDetails()" *ngIf="showUpdateBtn" >Обновить</button>
+          <button type="button" class="btn btn-primary" (click)="postFlat()" *ngIf="showAddedBtn">Сохранить</button>
+        </div>
       </div>
     </div>
   </div>

@@ -17,7 +17,6 @@ import {HttpClientModule} from "@angular/common/http";
 import {httpInterceptorProviders} from "./_helpers/http.interceptor";
 import { CellCustomComponent } from './content/home/cell-custom/cell-custom.component';
 import {AgGridModule} from "ag-grid-angular";
-import {NgbModalModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
   declarations: [
