@@ -22,19 +22,15 @@
                 <div *ngIf="password.errors['minlength']">  Password must be at least 6 characters  </div>
               </div>
             </div>
-            <div class="form-group">
+            <div class="btn-login">
               <button type="submit" class="btn btn-primary mb-2">  Login  </button>
             </div>
             <div class="form-group">
               <div *ngIf="f.submitted && isLoginFailed" class="alert alert-danger" role="alert">  Login failed: {{ errorMessage }}   </div>
             </div>
             <a style="color: white" routerLink="/sign-up" >New user? Click to signup!</a>
-
           </form>
-
         </form>
-
-
         <div class="alert alert-success" *ngIf="isLoggedIn">  Logged in as {{ roles }} </div>
         <button *ngIf="isLoggedIn" type="submit" class="btn btn-primary mb-2" routerLink="/home">  Перейти на главную страницу  </button>
       </div>

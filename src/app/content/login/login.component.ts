@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService} from "../_services/auth.service";
-import {StorageService} from "../_services/storage.service";
+import {AuthService} from "../../_services/auth.service";
+import {StorageService} from "../../_services/storage.service";
 import {Router} from '@angular/router';
 
 @Component({
@@ -10,11 +10,7 @@ import {Router} from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  form: any = {
-    username: null,
-    password: null
-  };
-
+  form: any = { username: null, password: null  };
   isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
@@ -27,19 +23,15 @@ export class LoginComponent implements OnInit {
     if (this.storageService.getToken()) {
       this.isLoggedIn = true;
       //this.roles = this.storageService.getAuthorities();
+      // this.roles = this.storageService.getUser().roles;
     }
-    /*
-    if (this.storageService.getToken()) {
-      this.isLoggedIn = true;
-      this.roles = this.storageService.getUser().roles;
-    }*/
   }
 
   onSubmit(): void {
-    const {username, password} = this.form;
+    //TODO добавить LoginRequest c полями username, password
+    const { username, password } = this.form;
     this.authService.login(username, password).subscribe({
       next: data => {
-
         console.log('1111111111');
         console.log(data);
         console.log(data.token);
@@ -47,19 +39,12 @@ export class LoginComponent implements OnInit {
         console.log(data.roles);
         this.storageService.saveToken(data.token);
         this.storageService.saveUsername(data.username);
-       // this.storageService.saveAuthorities(data.roles);
-
+        //TODO сохранить роли
+        // this.storageService.saveAuthorities(data.roles);
         this.isLoginFailed = false;
         this.isLoggedIn = true;
         //this.roles = this.storageService.getAuthorities();
         this.reloadPage();
-
-       // this.storageService.saveUser(data);
-       // this.isLoginFailed = false;
-      //  this.isLoggedIn = true;
-       // this.roles = this.storageService.getUser().roles;
-       //  this.reloadPage();
-        ///this.router.navigate(['/']);
       },
       error: err => {
         this.errorMessage = err.error.message;
@@ -70,6 +55,9 @@ export class LoginComponent implements OnInit {
 
   reloadPage(): void {
     window.location.reload();
+    //TODO выбросить emit SuccessLogin, вместо window.location.reload() использовать навигацию на /home
+   // setTimeout(() => { this.router.navigate(['/']);}, 500)
+    //this.router.navigate(['/']);
   }
 
   /*  login() {

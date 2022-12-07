@@ -1,0 +1,47 @@
+<div class="container">
+about works!
+  <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#addModal">Добавить квартиру</button>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="flatForm" >
+          <div class="mb-3">
+            <label for="city" class="form-label">Город</label>
+            <input type="text" formControlName ="city"  class="form-control" id="city" aria-describedby="serialNumberHelp">
+          </div>
+          <div class="mb-3">
+            <label for="street" class="form-label">Улица</label>
+            <input type="text" formControlName = "street" class="form-control" id="street">
+          </div>
+          <div class="mb-3">
+            <label for="houseNumber" class="form-label">Номер дома</label>
+            <input type="text" formControlName = "houseNumber" class="form-control" id="houseNumber">
+          </div>
+          <div class="mb-3">
+            <label for="entrance" class="form-label">Номер подъезда</label>
+            <input type="text" formControlName = "entrance" class="form-control" id="entrance">
+          </div>
+          <div class="mb-3">
+            <label for="flatNumber" class="form-label">Номер квартиры</label>
+            <input type="text" formControlName = "flatNumber" class="form-control" id="flatNumber">
+          </div>
+          <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+          </div>
+        </form>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+        <button type="button" class="btn btn-primary">Сохранить</button>
+      </div>
+    </div>
+  </div>
+</div>

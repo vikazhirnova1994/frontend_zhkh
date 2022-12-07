@@ -1,0 +1,85 @@
+<div style="width: fit-content; margin: auto;">
+
+  <button type="button" class="btn btn-outline-info" data-bs-overflow="hidden" data-bs-padding-right="0px" data-bs-toggle="modal" data-bs-target="#updateModal">Update</button>
+  <!-- <button type="button" class="btn btn-outline-info" (click)="openModel(update)" >Update</button>-->
+   <button type="button" class="btn btn-outline-dark">Delete</button>
+
+   <!-- Модальное окно -->
+  <div id="updateModal" class="modal fade" >
+    <div class="modal-dialog" data-bs-overflow="hidden" data-bs-padding-right="0px" data-backdrop="static" data-keyboard="false">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="updateModalLabel">Замена данных датчика</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+        <div class="modal-body">
+          <!--<form [formGroup]="formValue" >
+            <div class="mb-3">
+              <label for="serialNumber" class="form-label">Серийный номер</label>
+              <input type="text" formControlName ="serialNumber"  class="form-control" id="serialNumber" aria-describedby="serialNumberHelp">
+              <div id="serialNumberHelp" class="form-text">We'll never share your email with anyone else.</div>
+            </div>
+            <div class="mb-3">
+              <label for="manufacturer" class="form-label">Производитель</label>
+              <input type="text" formControlName = "manufacturer" class="form-control" id="manufacturer">
+            </div>
+            <div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input" id="exampleCheck1">
+              <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            </div>
+          </form>-->
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+          <button type="button" class="btn btn-primary">Сохранить изменения</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<ng-template #delete>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">View gage</h4>
+    <button type="button" class="close pull-right" aria-label="Close">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default">Close</button>
+  </div>
+</ng-template>
+
+<ng-template #update>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">View gage</h4>
+    <button type="button" class="close pull-right" aria-label="Close">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+
+  <div class="modal-body" style="width: 500px;">
+    <div class="form-group">
+      <label for="serialNumber">Серийный номер</label>
+      <input id="serialNumber" type="text" [disabled]="true" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="manufacturer">Производитель</label>
+      <input id ="manufacturer" type="text" [disabled]="true" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="typeGage">Тии прибора</label>
+      <input id="typeGage"  type="text" [disabled]="true" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="installationDate">Дата инсталяциии</label>
+      <input  id ="installationDate" type="text" [disabled]="true" class="form-control">
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default">Close</button>
+  </div>
+</ng-template>
+

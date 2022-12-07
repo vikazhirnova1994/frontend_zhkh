@@ -18,7 +18,7 @@ app-side-nav {
   width: 60px;
   height: calc(100vh - 4rem);
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-  background-color: rgba(34, 34, 34, 1);
+  background-color: rgba(24, 34, 34, 100);
   border-top: 1px solid whitesmoke;
   overflow-x: hidden;
   white-space: nowrap;

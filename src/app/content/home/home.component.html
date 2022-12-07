@@ -1,0 +1,65 @@
+<div *ngIf="isLoggedIn">
+  <p class="">Ваши счетчики!</p>
+  <div class="add-btn">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Добавить</button>
+  </div>
+  <div class="gage-list" style=>
+    <ag-grid-angular class="ag-grid-angular" style="margin: auto; margin-top: 50px; font-size: 18px;"
+                     [headerHeight]="80" [rowHeight]="80" [rowData]="rowData$ | async" [columnDefs]="columnDefs"
+                    [animateRows]="true" [rowSelection]="'multiple'" >
+      <!-- [defaultColDef]="defaultColDef" style="width: 100%; height: 500px;" -->
+    </ag-grid-angular>
+  </div>
+</div>
+<!-- Модальное окно -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Новый датчик</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="formValue" >
+          <div class="mb-3">
+            <label for="serialNumber" class="form-label">Серийный номер</label>
+            <input type="text" formControlName ="serialNumber"  class="form-control" id="serialNumber" aria-describedby="serialNumberHelp">
+            <div id="serialNumberHelp" class="form-text">We'll never share your email with anyone else.</div>
+          </div>
+          <div class="mb-3">
+            <label for="manufacturer" class="form-label">Производитель</label>
+            <input type="text" formControlName = "manufacturer" class="form-control" id="manufacturer">
+          </div>
+          <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+        <button type="button" class="btn btn-primary">Сохранить изменения</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+  <!--
+  <div class="modal fade" id="exampleModal" data-backdrop="false" style="background-color: rgba(0, 0, 0, 0.5);">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4>Create Project</h4>
+      </div>
+      <div class="modal-body">Not yet made</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+ -->

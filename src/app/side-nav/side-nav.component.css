@@ -26,7 +26,7 @@
   border-radius: 10px;
 }
 .nav-list-item[aria-selected="true"] {
-  background: #76b900 !important;
+  background: #2c862c !important;
 }
 
 .nav-list-item i {
