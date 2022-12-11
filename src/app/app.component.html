@@ -2,9 +2,9 @@
   <app-header (sideNavToggled)="sideNavStatus = $event;"></app-header>
   <main>
    <app-side-nav *ngIf="isLoggedIn" [sideNavStatus]="sideNavStatus" [ngClass]="{'app-side-nav-open': sideNavStatus}"
-                  (selectedMenuEmit)="sideNavSelected = $event;">
+                 (selectedMenuEmit)="sideNavSelected = $event;">
     </app-side-nav>
-    <div class="display-area p-3" [ngClass]="{'display-area-shrink' : sideNavStatus}">
+    <div class="display-area p-3" [ngClass]="{'display-area-shrink' : sideNavStatus}" >
       <router-outlet></router-outlet>
     </div>
 

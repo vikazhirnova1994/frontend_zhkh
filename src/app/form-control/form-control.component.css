@@ -1,0 +1,45 @@
+.form-group {
+  color: #8e9a9d;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+label {
+  font-weight: bold;
+  padding-bottom: 1rem;
+}
+
+.form-control {
+  position: relative;
+  background-color: #232a31;
+}
+i {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  color: white;
+}
+
+input {
+  transition: all 0.5s ease;
+  display: block;
+  margin: 0.5rem 0;
+  padding-left: 50px;
+  border-radius: 2.5px;
+  border: 1px solid #232a31;
+  outline: none;
+  background-color: #232a31;
+  color: #ffffff;
+}
+.input-field:focus {
+  border-color: #80bdff;
+}
+
+.form-error {
+  color: rgba(75,255,255,0.3);
+  border: solid rgba(75,255,255,0.3);
+}

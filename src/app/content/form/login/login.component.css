@@ -1,0 +1,45 @@
+.form {
+  border-radius: 0.5rem;
+  background-color: #111418ee;
+  padding: 3rem;
+  width: 400px;
+  overflow: hidden;
+  border: none;
+  padding: 40px;
+  position: center;
+}
+
+.form-title {
+  font-size: 2rem;
+  margin-top: 2rem;
+  font-weight: bold;
+  text-align: center;
+  color: #fff;
+}
+.form-btn {
+  background-color:rgba(75,255,255,0.3);
+  color: #fff;
+  width: 100%;
+  border: none;
+  outline: none;
+  border-radius: 0.25rem;
+  padding: 0.8rem 2.6rem;
+  margin: 1rem 0;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+
+
+.card {
+  margin-top: 100px;
+  border: none;
+  width: 500px;
+  padding: 40px;
+  position: center;
+  left: 50%;
+}
+
+.btn {
+  background-color: #111418ee;
+  color: white;
+}

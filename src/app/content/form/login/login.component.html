@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="form" *ngIf="!isLoggedIn">
+          <div class="form-title">Авторизация</div>
+          <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <app-form-control [control]="control" *ngFor="let control of getControl()"></app-form-control>
+            <button type="submit" *ngIf="form.valid" class="form-btn">Авторизоваться</button>
+          </form>
+          <div *ngIf="isLoginFailed" class="alert alert-danger" role="alert"> Login
+            failed: {{ errorMessage }}   </div>
+          <a style="color: white" routerLink="/sign-up">Новый пользователь? <p>Переходите на регитрацию</p></a>
+        </div>
+        <div class="alert alert-success" *ngIf="isLoggedIn"> Вы успешно авторизованы!</div>
+        <button *ngIf="isLoggedIn" type="submit" class="btn" routerLink="/home">  Перейти на главную страницу  </button>
+      </div>
+    </div>
+  </div>
+</div>

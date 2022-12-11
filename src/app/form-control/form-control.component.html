@@ -1,0 +1,8 @@
+<div class="form-group">
+  <label [for]="control.name">{{control.label}}</label>
+  <div class="form-control" [class]="{'form-error': control.errorMessages?.length >0 }">
+    <input  type="text" [name]="control.name" id="username" [formControl]="control" [placeholder]="control.placeholder"   >
+    <i  class= {{control.icon}}></i>
+  </div>
+  <div  class="form-error" *ngFor="let error of control.errorMessages">{{error}}</div>
+</div>

@@ -10,14 +10,16 @@ import {SettingComponent} from './content/setting/setting.component';
 import {AboutComponent} from './content/about/about.component';
 import {RouterOutlet} from "@angular/router";
 import {AppRoutingModule} from "./app-routing.module";
-import {LoginComponent} from './content/login/login.component';
-import {SignupComponent} from './content/signup/signup.component';
+import {LoginComponent} from './content/form/login/login.component';
+import {SignupComponent} from './content/form/signup/signup.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {httpInterceptorProviders} from "./_helpers/http.interceptor";
 import { CellCustomComponent } from './content/home/cell-custom/cell-custom.component';
 import {AgGridModule} from "ag-grid-angular";
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {FormControlComponent} from "./form-control/form-control.component";
+import { ProfileComponent } from './profile/profile.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,15 +32,18 @@ import {AgGridModule} from "ag-grid-angular";
     LoginComponent,
     SignupComponent,
     CellCustomComponent,
+    FormControlComponent,
+    ProfileComponent,
   ],
   imports: [
-    BrowserModule,
     RouterOutlet,
-    ReactiveFormsModule,
-    FormsModule,
     HttpClientModule,
     AppRoutingModule,
     AgGridModule,
+    NgbModule,
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]

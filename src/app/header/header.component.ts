@@ -1,7 +1,8 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {StorageService} from "../_services/storage.service";
 import {AuthService} from "../_services/auth.service";
 import {Router} from "@angular/router";
+import {timeout} from "rxjs";
 
 @Component({
   selector: 'app-header',
@@ -10,13 +11,14 @@ import {Router} from "@angular/router";
 })
 export class HeaderComponent implements OnInit {
 
+  @Input() sideNavStatus: boolean = false;
   @Output() sideNavToggled = new EventEmitter<boolean>();
   menuStatus: boolean = false;
 
   private roles: string[] = [];
   isLoggedIn = false;
-  showAdminBoard = false;
-  showModeratorBoard = false;
+ // showAdminBoard = false;
+ // showModeratorBoard = false;
   username?: string;
 
   constructor(private storageService: StorageService, private authService: AuthService, private router: Router) { }
@@ -45,7 +47,7 @@ export class HeaderComponent implements OnInit {
       next: res => {
         console.log(res);
         this.storageService.clean();
-
+        timeout(2000);
         this.router.navigate(['/']);
        // window.location.reload();
       },

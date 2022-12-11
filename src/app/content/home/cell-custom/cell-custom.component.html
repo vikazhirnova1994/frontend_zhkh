@@ -1,8 +1,8 @@
 <div style="width: fit-content; margin: auto;">
 
-  <button type="button" class="btn btn-outline-info" data-bs-overflow="hidden" data-bs-padding-right="0px" data-bs-toggle="modal" data-bs-target="#updateModal">Update</button>
-  <!-- <button type="button" class="btn btn-outline-info" (click)="openModel(update)" >Update</button>-->
-   <button type="button" class="btn btn-outline-dark">Delete</button>
+ <!-- <button type="button" class="btn btn-outline-info" data-bs-overflow="hidden" data-bs-padding-right="0px" data-bs-toggle="modal" data-bs-target="#updateModal">Update</button>-->
+   <button type="button" class="btn btn-outline-info" (click)="openModel(update)" >Update</button>
+   <button type="button" class="btn btn-outline-dark" (click)="openModel(delete)">Delete</button>
 
    <!-- Модальное окно -->
   <div id="updateModal" class="modal fade" >
@@ -40,7 +40,7 @@
 
 </div>
 
-<ng-template #delete>
+<ng-template #delete let-modal>
   <div class="modal-header">
     <h4 class="modal-title pull-left">View gage</h4>
     <button type="button" class="close pull-right" aria-label="Close">
@@ -48,14 +48,15 @@
     </button>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-default">Close</button>
+    <button type="button" class="btn btn-default" (click)="deleteGage()">Delete</button>
+    <button type="button" class="btn btn-default" (click)="modal.dismiss('Cross click')">Close</button>
   </div>
 </ng-template>
 
-<ng-template #update>
+<ng-template #update let-modal>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">View gage</h4>
-    <button type="button" class="close pull-right" aria-label="Close">
+    <h4 class="modal-title pull-left" id="model-basic-title">View gage</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">×</span>
     </button>
   </div>
@@ -63,23 +64,27 @@
   <div class="modal-body" style="width: 500px;">
     <div class="form-group">
       <label for="serialNumber">Серийный номер</label>
-      <input id="serialNumber" type="text" [disabled]="true" class="form-control">
+      <input id="serialNumber" type="text" [(ngModel)] = "params.data.serialNumber" class="form-control">
     </div>
     <div class="form-group">
       <label for="manufacturer">Производитель</label>
-      <input id ="manufacturer" type="text" [disabled]="true" class="form-control">
+      <input id ="manufacturer" [(ngModel)] = "params.data.manufacturer"  type="text"  class="form-control">
     </div>
     <div class="form-group">
       <label for="typeGage">Тии прибора</label>
-      <input id="typeGage"  type="text" [disabled]="true" class="form-control">
+      <input id="typeGage" [(ngModel)] = "params.data.typeGage" type="text"  class="form-control">
     </div>
     <div class="form-group">
       <label for="installationDate">Дата инсталяциии</label>
-      <input  id ="installationDate" type="text" [disabled]="true" class="form-control">
+      <input  id ="installationDate" [(ngModel)]="params.data.installationDate" type="text" class="form-control">
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-default">Close</button>
+    <button type="button" class="btn btn-default" (click)="updateGage()">Save</button>
+    <button type="button" class="btn btn-default" (click)="modal.dismiss('Cross click')">Close</button>
+    <!--<button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>-->
+
+
   </div>
 </ng-template>
 

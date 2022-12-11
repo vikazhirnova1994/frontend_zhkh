@@ -17,6 +17,8 @@ export class AppComponent {
   isLoggedIn = false;
   eventBusSub?: Subscription;
 
+  role : string ="";
+
   constructor(private storageService: StorageService, private authService: AuthService,
               private eventBusService: EventBusService) { }
 
@@ -25,13 +27,14 @@ export class AppComponent {
     this.eventBusSub = this.eventBusService.on('logout', () => {
       this.logout();
     });
+    this.role = this.storageService.getAuthorities();
   }
+
   logout(): void {
     this.authService.logout().subscribe({
       next: res => {
         console.log(res);
         this.storageService.clean();
-
         window.location.reload();
       },
       error: err => {

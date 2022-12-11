@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="form" *ngIf="!isSuccessful">
+          <div class="form-title">Регистрация</div>
+          <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <app-form-control [control]="control" *ngFor="let control of getControl()"></app-form-control>
+            <button type="submit" *ngIf="form.valid" class="form-btn">Зарегистрироваться</button>
+          </form>
+          <div *ngIf="isSignUpFailed" class="alert alert-danger" role="alert"> Login
+            failed: {{ errorMessage }}   </div>
+        </div>
+        <a style="color: white" routerLink="/login">Уже зарегистрированы? <p>Переходите на авторизацию</p></a>
+      </div>
+      <div class="alert alert-success" *ngIf="isSuccessful"> Вы успешно зарегистрированы!</div>
+    </div>
+  </div>
+</div>

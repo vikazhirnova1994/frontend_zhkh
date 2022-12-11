@@ -1,7 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService} from "../../_services/auth.service";
-import {StorageService} from "../../_services/storage.service";
+import {AuthService} from "../../../_services/auth.service";
+import {StorageService} from "../../../_services/storage.service";
 import {Router} from '@angular/router';
+import {FormGroup, Validators} from "@angular/forms";
+import {FormControlModel} from "../form.model";
 
 @Component({
   selector: 'app-login',
@@ -10,11 +12,10 @@ import {Router} from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  form: any = { username: null, password: null  };
+  public form: FormGroup;
   isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
-  roles: string[] = [];
 
   constructor(private authService: AuthService, private storageService: StorageService, private router: Router) {
   }
@@ -22,14 +23,39 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     if (this.storageService.getToken()) {
       this.isLoggedIn = true;
-      //this.roles = this.storageService.getAuthorities();
-      // this.roles = this.storageService.getUser().roles;
     }
-  }
+      this.form = new FormGroup({
+        username: new FormControlModel({
+          label: 'Имя пользователя',
+          placeholder: 'Имя пользователя',
+          name: "username",
+          validation: {
+            required: 'Пожалуйста, введите логин',
+          },
+          icon: 'fas fa-user'
+        }, '', [
+          Validators.required,
+        ]),
+        password: new FormControlModel({
+          label: 'Пароль',
+          placeholder: 'Пароль',
+          name: "password",
+          validation: {
+            required: 'Пожалуйста, введите пароль',
+            pattern: 'Введите не менее 8 символов'
+          },
+          icon: 'fa-solid fa-key'
+        }, '', [
+          Validators.required,
+          Validators.pattern("\\d{8}"),
+        ])
+      });
+    }
 
   onSubmit(): void {
     //TODO добавить LoginRequest c полями username, password
-    const { username, password } = this.form;
+    console.log(this.form.value)
+    const { username, password } = this.form.value;
     this.authService.login(username, password).subscribe({
       next: data => {
         console.log('1111111111');
@@ -39,11 +65,10 @@ export class LoginComponent implements OnInit {
         console.log(data.roles);
         this.storageService.saveToken(data.token);
         this.storageService.saveUsername(data.username);
-        //TODO сохранить роли
-        // this.storageService.saveAuthorities(data.roles);
+        this.storageService.saveContractNumber(data.contractNumber);
+        this.storageService.saveAuthorities(data.roles);
         this.isLoginFailed = false;
         this.isLoggedIn = true;
-        //this.roles = this.storageService.getAuthorities();
         this.reloadPage();
       },
       error: err => {
@@ -59,22 +84,7 @@ export class LoginComponent implements OnInit {
    // setTimeout(() => { this.router.navigate(['/']);}, 500)
     //this.router.navigate(['/']);
   }
-
-  /*  login() {
-      this.http.get<any>("http://localhost:8081/login")
-        .subscribe(res=> {
-          const user = res.find((a:any)=> {
-            return a.email ===this.loginForm.value.email && a.password === this.loginForm.value.password
-          });
-          if (user) {
-            alert("Login success")
-            this.loginForm.reset();
-            this.router.navigate(['home'])
-          } else {
-            alert("user not found")
-          }
-        }, err=> {
-          alert("Something went wrong!!");
-        });
-    }*/
+  public getControl(): Array<FormControlModel> {
+    return Object.values(this.form.controls) as Array<FormControlModel>;
+  }
 }

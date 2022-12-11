@@ -18,11 +18,11 @@ export class AuthService {
   }
 
   login(username: string, password: string): Observable<JwtResponse> {
-    return this.http.post<JwtResponse>(    AUTH_API + 'signin', {username, password,},  httpOptions );
+    return this.http.post<JwtResponse>( AUTH_API + 'signin', {username, password,},  httpOptions );
   }
 
-  register(username: string, email: string, password: string): Observable<JwtResponse> {
-    return this.http.post<JwtResponse>(AUTH_API + 'signup', {username, email, password, },  httpOptions );
+  register(username: string, contractNumber: string, password: string): Observable<JwtResponse> {
+    return this.http.post<JwtResponse>(AUTH_API + 'signup', {username, contractNumber, password, },  httpOptions );
   }
 
   logout(): Observable<any> {
