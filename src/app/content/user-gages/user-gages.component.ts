@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
-import {StorageService} from "../_services/storage.service";
+import {StorageService} from "../../_services/storage.service";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {UserGagesModal} from "./user-gages.modal";
-import {UserGagesDataModal} from "./user-gages-data.modal";
+import {UserGagesDataModal} from "../../user-gages-data/user-gages-data.modal";
 
 @Component({
   selector: 'app-user-gages',
@@ -13,8 +13,8 @@ import {UserGagesDataModal} from "./user-gages-data.modal";
 export class UserGagesComponent implements OnInit {
 
   userGageList: Array<UserGagesModal>;
-
   userGageDataList: Array<UserGagesDataModal>;
+  userGageDataByIdList: Array<UserGagesDataModal>;
 
   rowData$: Observable<any[]>;
   isLoggedIn = false;
@@ -22,6 +22,7 @@ export class UserGagesComponent implements OnInit {
   constructor(private storageService: StorageService, private http: HttpClient) {
     this.userGageList = new Array<UserGagesModal>();
     this.userGageDataList = new Array<UserGagesDataModal>();
+    this.userGageDataByIdList = new Array<UserGagesDataModal>();
   }
 
   ngOnInit(): void {
@@ -55,15 +56,15 @@ export class UserGagesComponent implements OnInit {
   }
 
   loadLastData(id: string) {
-    let params = new HttpParams();
-    params = params.append('gageId', id);
+ /*   let params = new HttpParams();
+    params = params.append('gageId', id);*/
 
-  /*  this.http.get<UserGagesDataModal>('http://localhost:8005/api/gage-data/user/', {params: params}).subscribe(
-      (data: UserGagesDataModal) => {
+   this.http.get<Array<UserGagesDataModal>>('http://localhost:8005/api/gage-data/user/'+id/*, {params: params}*/).subscribe(
+      (data: Array<UserGagesDataModal>) => {
         console.log("!!!!!!!!!!!!!!!", data);
         // this.rowData$ = response;
       //  this.userGageList = data;
-        this.userGageData = data
-      });*/
+        this.userGageDataByIdList = data
+      });
   }
 }

@@ -1,7 +1,7 @@
 import {Component,  OnInit} from '@angular/core';
 import {AuthService} from '../../../_services/auth.service';
 import {FormControl, FormGroup, Validators, FormBuilder, ValidationErrors} from "@angular/forms";
-import {FormControlModel} from "../form.model";
+import {FormControlModel} from "../../../form-control/form.model";
 import {publish} from "rxjs";
 
 @Component({

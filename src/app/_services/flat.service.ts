@@ -21,8 +21,7 @@ export class FlatService {
     return this.http.delete<any>(this.baseUrl + '/api/flat/' + id);
   }
 
-  updateStudent(flatModel: any, id: number) {
+//  updateStudent(flatModel: any, id: number) {
     //return this.http.put<any>(this.baseUrl + '/api/flat/' + id, flatModel);
-
-  }
+ // }
 }

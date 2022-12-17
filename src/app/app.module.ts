@@ -19,8 +19,9 @@ import { CellCustomComponent } from './content/home/cell-custom/cell-custom.comp
 import {AgGridModule} from "ag-grid-angular";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {FormControlComponent} from "./form-control/form-control.component";
-import { ProfileComponent } from './profile/profile.component';
-import { UserGagesComponent } from './user-gages/user-gages.component';
+import { UserGagesComponent } from './content/user-gages/user-gages.component';
+import { UserGagesDataComponent } from './user-gages-data/user-gages-data.component';
+import {ProfileComponent} from "./content/profile/profile.component";
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,6 +37,7 @@ import { UserGagesComponent } from './user-gages/user-gages.component';
     FormControlComponent,
     ProfileComponent,
     UserGagesComponent,
+    UserGagesDataComponent,
   ],
   imports: [
     RouterOutlet,

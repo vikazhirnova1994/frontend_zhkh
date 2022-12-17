@@ -1,5 +1,5 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {FormControlModel} from "../content/form/form.model";
+import {FormControlModel} from "./form.model";
 
 @Component({
   selector: 'app-form-control',

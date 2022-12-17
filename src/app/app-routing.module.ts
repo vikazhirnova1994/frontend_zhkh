@@ -6,8 +6,9 @@ import {SettingComponent} from "./content/setting/setting.component";
 import {AboutComponent} from "./content/about/about.component";
 import {LoginComponent} from "./content/form/login/login.component";
 import {SignupComponent} from "./content/form/signup/signup.component";
-import {ProfileComponent} from "./profile/profile.component";
-import {UserGagesComponent} from "./user-gages/user-gages.component";
+import {ProfileComponent} from "./content/profile/profile.component";
+import {UserGagesComponent} from "./content/user-gages/user-gages.component";
+import {UserGagesDataComponent} from "./user-gages-data/user-gages-data.component";
 
 const routes: Routes = [
  { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'sign-up', component: SignupComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'user-gages', component: UserGagesComponent },
+  { path: 'user-gages-data', component: UserGagesDataComponent },
   { path: 'sign-out', redirectTo: 'login'  },
 
 ];
