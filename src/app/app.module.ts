@@ -20,6 +20,7 @@ import {AgGridModule} from "ag-grid-angular";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {FormControlComponent} from "./form-control/form-control.component";
 import { ProfileComponent } from './profile/profile.component';
+import { UserGagesComponent } from './user-gages/user-gages.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,6 +35,7 @@ import { ProfileComponent } from './profile/profile.component';
     CellCustomComponent,
     FormControlComponent,
     ProfileComponent,
+    UserGagesComponent,
   ],
   imports: [
     RouterOutlet,

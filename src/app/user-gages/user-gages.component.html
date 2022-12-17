@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="col">
+    <p class="h3 fw-bold align-content-center"> Ваши ИПУ </p>
+  </div>
+</div>
+
+<div class="container">
+  <div class="card-group">
+    <div class="card" *ngFor="let item of userGageList">
+      <img *ngIf="item.typeGage.includes('ELECTRICAL_ENERGY_METER')" class="card-img-top"
+           src="assets/img/electrical.png" alt="Card image cap">
+      <img *ngIf="item.typeGage.includes('COLD_WATER_METER')" class="card-img-top" src="assets/img/water.png"
+           alt="Card image cap">
+      <img *ngIf="item.typeGage.includes('THERMAL_ENERGY_METER')" class="card-img-top" src="assets/img/termal.jpg"
+           alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title"><p class="fw-bold">N {{item.serialNumber}}</p></h5>
+        <p class="card-text" *ngIf="item.typeGage.includes('ELECTRICAL_ENERGY_METER')">ИПУ для измерения
+          электричества</p>
+        <p class="card-text" *ngIf="item.typeGage.includes('COLD_WATER_METER')">ИПУ для измерения воды</p>
+        <p class="card-text" *ngIf="item.typeGage.includes('THERMAL_ENERGY_METER')">ИПУ для измерения тепла</p>
+      </div>
+        <li class="list-group-item" *ngFor="let itemData of userGageDataList">
+          <p class="fw-bold" *ngIf="itemData.serialNumber == item.serialNumber" >Последние показания</p>
+        <p *ngIf="itemData.serialNumber == item.serialNumber"  >Дата {{itemData.departureDate}} </p>
+        <p *ngIf="itemData.serialNumber == item.serialNumber" >Значение {{itemData.data}}</p>
+        </li>
+
+      <a class="btn btn-primary">Все показания</a>
+    </div>
+  </div>
+</div>
+

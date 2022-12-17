@@ -17,39 +17,41 @@ export class HeaderComponent implements OnInit {
 
   private roles: string[] = [];
   isLoggedIn = false;
- // showAdminBoard = false;
- // showModeratorBoard = false;
+  // showAdminBoard = false;
+  // showModeratorBoard = false;
   username?: string;
 
-  constructor(private storageService: StorageService, private authService: AuthService, private router: Router) { }
+  constructor(private storageService: StorageService, private authService: AuthService, private router: Router) {
+  }
 
   ngOnInit(): void {
     this.isLoggedIn = this.storageService.isLoggedIn();
 
     if (this.isLoggedIn) {
       const user = this.storageService.getUsername();
-     // this.roles = user.roles;
+      // this.roles = user.roles;
 
-    //  this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
-     // this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
+      //  this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
+      // this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
 
       this.username = user;
     }
   }
 
-  SideNavToggle(){
+  SideNavToggle() {
     this.menuStatus = !this.menuStatus;
     this.sideNavToggled.emit(this.menuStatus);
   }
 
   logout(): void {
+
+
     this.authService.logout().subscribe({
       next: res => {
         console.log(res);
         this.storageService.clean();
-        timeout(2000);
-        this.router.navigate(['/']);
-       // window.location.reload();
+        this.router.navigate(['/login']);
+        // window.location.reload();
       },
       error: err => {
         console.log(err);

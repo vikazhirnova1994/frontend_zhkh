@@ -8,12 +8,14 @@
             <app-form-control [control]="control" *ngFor="let control of getControl()"></app-form-control>
             <button type="submit" *ngIf="form.valid" class="form-btn">Зарегистрироваться</button>
           </form>
-          <div *ngIf="isSignUpFailed" class="alert alert-danger" role="alert"> Login
-            failed: {{ errorMessage }}   </div>
+          <div id="alert-danger" *ngIf="isSignUpFailed" class="alert alert-danger" role="alert"> Login failed: {{ errorMessage }}   </div>
         </div>
         <a style="color: white" routerLink="/login">Уже зарегистрированы? <p>Переходите на авторизацию</p></a>
       </div>
-      <div class="alert alert-success" *ngIf="isSuccessful"> Вы успешно зарегистрированы!</div>
+      <!--<div class="alert alert-dark" *ngIf="isSuccessful"> Вы успешно зарегистрированы!</div>-->
+      <div id="alert-success" class="alert alert-success" *ngIf="isSuccessful">
+        <a class="title" style="color: white" routerLink="/login">Вы успешно зарегистрированы! <p>Переходите на авторизацию</p></a>
+      </div>
     </div>
   </div>
 </div>

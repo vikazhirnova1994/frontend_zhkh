@@ -60,7 +60,7 @@ export class SignupComponent implements OnInit  {
         icon: 'fa-solid fa-key'
       }, '', [
         Validators.required,
-        Validators.pattern("\\d{8}"),
+        Validators.pattern("\\d{8,}"),
       ])
     });
   }

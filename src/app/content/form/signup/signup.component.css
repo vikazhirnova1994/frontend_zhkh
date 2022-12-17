@@ -37,6 +37,15 @@
   position: center;
   left: 50%;
 }
+
+#alert-success {
+  left: 50%;
+  width: 400px;
+  overflow: hidden;
+  border: none;
+  position: center;
+  background-color: #111418ee;
+}
 /*.card {
   margin-top: 100px;
   border: none;
