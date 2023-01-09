@@ -1,6 +1,6 @@
 import {UserGageData} from "./user-gage-data";
 
-export interface Page {
+export interface UserPage {
   "content": UserGageData[],
   "pageable": {
     "sort": {

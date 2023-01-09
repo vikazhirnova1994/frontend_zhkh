@@ -1,19 +1,16 @@
 <div class="container">
-<h3 class="fw-bold">Ваши переданные показания</h3>
-
-  <div class="border">
-    <button class="btn btn-md btn-outline-primary" (click)="openModel()">
+  <h3 class="fw-bold">Ваши переданные показания</h3>
+  <div class="border" *ngIf=canAddDate>
+    <button class="btn btn-md btn-outline-primary" (click)="openModel()" >
       <i id="myicon" class="fa-regular fa-plus"></i> Добавить показания </button>
-
   </div>
-
+  <br>
   <form #searchForm="ngForm" class="d-flex" role="search" (ngSubmit)="goToPage(searchForm.value.serialNumber)">
     <input class="form-control me-2" type="text" name="serialNumber" ngModel placeholder="Серийный номер" aria-label="Поиск">
     <button class="btn btn-success" type="submit">Поиск</button>
   </form>
 </div>
-
-
+<br>
 <ng-container *ngIf="(gageDateSate$ | async) as state" [ngSwitch]="state.appState">
   <div class="container">
     <div class="row">
@@ -40,8 +37,10 @@
             <tbody>
             <tr *ngFor="let gageDate of state.appData.data.page.content; let i = index;">
               <th scope="row"> {{i + 1 }} </th>
-              <td><span class="badge" [ngClass]="[gageDate.typeGage === 'THERMAL_ENERGY_METER' ? 'bg-success' : '',  gageDate.typeGage ===  'ELECTRICAL_ENERGY_METER' ? 'bg-primary' : '',
-              gageDate.typeGage === 'COLD_WATER_METER' ? 'bg-info' : '']">{{gageDate.typeGage}} </span></td>
+              <td><span class="badge" [ngClass]="[
+              gageDate.typeGage === 'THERMAL_ENERGY' ? 'bg-success' : '',
+              gageDate.typeGage ===  'ELECTRICAL_ENERGY' ? 'bg-primary' : '',
+              gageDate.typeGage === 'COLD_WATER' ? 'bg-info' : '']">{{gageDate.typeGage}} </span></td>
               <td>{{gageDate.serialNumber}}</td>
               <td>{{gageDate.data}}</td>
               <td>{{gageDate.departureDate}}</td>
@@ -51,7 +50,8 @@
           <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-end">
               <li class="page-item pointer" [ngClass]="0 == (currentPage$ | async) ? ' disabled' : ''">
-                <a class="page-link" aria-label="Previous" (click)="goToPreviousOrNextPage('backward', searchForm.value.serialNumber)">
+                <a class="page-link" aria-label="Previous"
+                   (click)="goToPreviousOrNextPage('backward', searchForm.value.serialNumber)">
                   <span aria-hidden="true">&laquo; Previous</span>
                 </a>
               </li>
@@ -63,7 +63,8 @@
                 </a></li>
               <li class="page-item pointer"
                   [ngClass]="state.appData.data.page.totalPages -1 == (currentPage$ | async) ? ' disabled' : ''">
-                <a class="page-link" aria-label="Next" (click)="goToPreviousOrNextPage('forward', searchForm.value.serialNumber)">
+                <a class="page-link" aria-label="Next"
+                   (click)="goToPreviousOrNextPage('forward', searchForm.value.serialNumber)">
                   <span aria-hidden="true">Next &raquo;</span>
                 </a>
               </li>
@@ -86,24 +87,32 @@
     <form [formGroup]="gageForm" (ngSubmit)="saveGageDate()" novalidate>
       <div class="form-group">
         <p for="electricity">ИПУ для измерения электричества</p>
-        <div class="input-group"><label for="electricity_day">День</label> <input type="number" id="electricityDay" class="form-control" formControlName = "electricityDay" > </div>
-        <div class="input-group"><label for="electricity_night">Ночь</label> <input type="number" id="electricityNight" class="form-control" formControlName = "electricityNight" > </div>
+        <div class="input-group">
+          <label for="electricity_day">День</label>
+          <input type="number" id="electricityDay" class="form-control" formControlName="electricityDay">
+        </div>
+        <div class="input-group">
+          <label for="electricity_night">Ночь</label>
+          <input type="number" id="electricityNight" class="form-control" formControlName="electricityNight">
+        </div>
       </div>
       <div class="form-group">
-        <p for="water" >ИПУ для измерения воды</p>
-        <div class="input-group"><label for="water_hot">ГВС</label> <input type="number" id="waterHot" class="form-control" formControlName = "waterHot"> </div>
-        <div class="input-group"><label for="water_cool">ХВС</label> <input type="number" id="waterCool" class="form-control" formControlName = "waterCool"> </div>
+        <p for="water">ИПУ для измерения воды</p>
+        <div class="input-group">
+          <label for="water_hot">ГВС</label>
+          <input type="number" id="waterHot" class="form-control" formControlName="waterHot"></div>
+        <div class="input-group">
+          <label for="water_cool">ХВС</label>
+          <input type="number" id="waterCool" class="form-control" formControlName="waterCool"></div>
       </div>
       <div class="form-group">
         <label for="energy">ИПУ для измерения тепла</label>
-        <div class="input-group"> <input type="number" id="energy" class="form-control" formControlName = "energy"> </div>
-      </div>
-      <div class="border text-center">
-        <button data-dismiss="model" class="btn btn-info">Submit</button>
+        <div class="input-group"><input type="number" id="energy" class="form-control" formControlName="energy"></div>
       </div>
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
+    <button data-dismiss="model" class="btn btn-info">Submit</button>
+    <button type="button" class="btn" (click)="modal.close('Save click')">Close</button>
   </div>
 </ng-template>

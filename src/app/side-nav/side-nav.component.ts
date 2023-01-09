@@ -24,16 +24,18 @@ export class SideNavComponent implements OnInit {
 
   adminList = [
     {number: '1', route: 'profile', name: 'Главная', icon: 'fa-solid fa-house', role: 'admin'},
-    {number: '1', route: 'all-user', name: 'Пользователи', icon: 'fa fa-user-o', role: 'admin'},
-    {number: '2', route: 'all-role', name: 'Роли', icon: 'fa fa-universal-access', role: 'admin'},
+    {number: '2', route: 'all-user', name: 'Пользователи', icon: 'fa fa-user-o', role: 'admin'},
+    {number: '3', route: 'all-flat', name: 'Квартиры', icon: 'fa-solid fa-house', role: 'admin'},
+    {number: '4', route: 'all-contract', name: 'Договоры', icon: 'fa-solid fa-chart-line', role: 'admin'},
+    {number: '5', route: 'all-gage', name: 'Приборы', icon: 'fa-solid fa-gear', role: 'admin'},
   ];
 
-  moderatorList = [
+/*  moderatorList = [
     {number: '1', route: 'profile', name: 'Главная', icon: 'fa-solid fa-house', role: 'moderator'},
     {number: '2', route: 'all-flat', name: 'Квартиры', icon: 'fa-solid fa-house', role: 'moderator'},
     {number: '3', route: 'all-contract', name: 'Договоры', icon: 'fa-solid fa-chart-line', role: 'moderator'},
     {number: '3', route: 'all-gage', name: 'Приборы', icon: 'fa-solid fa-gear', role: 'moderator'},
-  ];
+  ];*/
 
   dispatcherList = [
     {number: '1', route: 'all_indication', name: 'Показания', icon: 'fa-solid fa-house', role: 'dispatcher'},
@@ -55,9 +57,9 @@ export class SideNavComponent implements OnInit {
           case '["ADMIN"]': {
           this.role = "admin"; break;
         }
-        case '["MODERATOR"]': {
+      /*  case '["MODERATOR"]': {
           this.role = "moderator"; break;
-        }
+        }*/
         case '["DISPATCHER"]': {
           this.role = "dispatcher"; break;
         }

@@ -1,0 +1,195 @@
+<div class="container">
+  <h3 class="fw-bold">Список квартир</h3>
+  <div class="border">
+    <button class="btn btn-md btn-outline-primary" (click)="openContent()"> <i id="myicon" class="fa-regular fa-plus"></i> Добавить </button>
+  </div>
+  <br>
+</div>
+<br>
+<ng-container *ngIf="(flatState$ | async) as state" [ngSwitch]="state.appState">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 mt-3">
+        <ng-container *ngSwitchCase="'APP_ERROR'"> {{ state.error | json }}</ng-container>
+        <ng-container *ngSwitchCase="'APP_LOADING'">
+          <div class="d-flex justify-content-center mt-4">
+            <div class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngSwitchCase="'APP_LOADED'">
+          <table class="table table-dark">
+            <thead>
+            <tr>
+              <th scope="col">N</th>
+              <th scope="col">Город</th>
+              <th scope="col">Улица</th>
+              <th scope="col">Номер дома</th>
+              <th scope="col">Номер подъезда</th>
+              <th scope="col">Номер квартиры</th>
+              <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let flat of state.appData.data.page.content; let i = index;">
+              <th scope="row"> {{i + 1 }} </th>
+              <td>{{flat.city}}</td>
+              <td>{{flat.street}}</td>
+              <td>{{flat.houseNumber}}</td>
+              <td>{{flat.entrance}}</td>
+              <td>{{flat.flatNumber}}</td>
+              <td>
+                <button (click)="openContentDetails(flat.city, flat.street, flat.houseNumber, flat.entrance, flat.flatNumber)"
+                        data-bs-toggle="modal" data-bs-target="#detailsModal" class="btn btn-outline-primary text-white mx-2">Подробнее </button>
+                <button (click)="openContentDetailsForUpdate(flat.id, flat.city, flat.street, flat.houseNumber, flat.entrance, flat.flatNumber)"
+                        data-bs-toggle="modal" data-bs-target="#detailsModal"  class="btn btn-outline-primary text-white mx-2">Изменить </button>
+                <button (click)="openContentDelete(flat.id)" class="btn btn-outline-primary text-white mx-2">Удалить</button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-end">
+              <li class="page-item pointer" [ngClass]="0 == (currentPage$ | async) ? ' disabled' : ''">
+                <a class="page-link" aria-label="Previous" (click)="goToPreviousOrNextPage('backward')">  <span aria-hidden="true">&laquo; Previous</span> </a>
+              </li>
+              <li class="page-item pointer" *ngFor="let pageNumber of [].constructor(state.appData.data.page.totalPages); let i = index;" [ngClass]="i == (currentPage$ | async) ? ' active' : ''">
+                <a class="page-link" (click)="goToPage(i)"> {{ i + 1}}  </a></li>
+              <li class="page-item pointer" [ngClass]="state.appData.data.page.totalPages - 1 == (currentPage$ | async) ? ' disabled' : ''">
+                <a class="page-link" aria-label="Next" (click)="goToPreviousOrNextPage('forward')">  <span aria-hidden="true">Next &raquo;</span> </a>
+              </li>
+            </ul>
+          </nav>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Добавить новый адрес</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #f="ngForm" novalidate>
+      <div class="form-group">
+        <label for="city">Город</label>
+        <div class="input-group"> <input type="text" id="city" class="form-control" name="city" ngModel> </div>
+      </div>
+      <div class="form-group">
+        <label for="street">Улица</label>
+        <div class="input-group"> <div><input type="text" id="street" name="street" class="form-control" ngModel></div></div>
+      </div>
+      <div class="form-group">
+        <label for="houseNumber">Номер дома</label>
+        <div class="input-group">  <div><input type="text" id="houseNumber" name="houseNumber" class="form-control" ngModel></div> </div>
+      </div>
+      <div class="form-group">
+        <label for="entrance">Номер подъезда</label>
+        <div class="input-group"> <div><input type="number" id="entrance" name="entrance" class="form-control" ngModel></div></div>
+      </div>
+      <div class="form-group">
+        <label for="flatNumber">Номер квартиры</label>
+        <div class="input-group"> <div><input type="number" id="flatNumber" name="flatNumber" class="form-control" ngModel></div></div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <div> <button data-dismiss="model" class="btn btn-outline-primary" (click)="onSubmit(f)" >Сохранить</button> </div>
+    <button type="button" class="btn btn btn-dark" (click)="modal.close('Save click')">Закрыть</button>
+  </div>
+</ng-template>
+
+<ng-template #contentDetails let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title-details">Детали адреса</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="flatForm">
+      <div class="mb-3">
+        <label for="cityDetail" class="form-label">Город</label>
+        <input type="text" formControlName="city" class="form-control" id="cityDetail"  aria-describedby="serialNumberHelp" readonly>
+      </div>
+      <div class="mb-3">
+        <label for="streetDetail" class="form-label">Улица</label>
+        <input type="text" formControlName="street" class="form-control" id="streetDetail" readonly>
+      </div>
+      <div class="mb-3">
+        <label for="houseNumberDetail" class="form-label">Номер дома</label>
+        <input type="number" formControlName="houseNumber" class="form-control" id="houseNumberDetail" readonly>
+      </div>
+      <div class="mb-3">
+        <label for="entranceDetail" class="form-label">Номер подъезда</label>
+        <input type="number" formControlName="entrance" class="form-control" id="entranceDetail" readonly>
+      </div>
+      <div class="mb-3">
+        <label for="flatNumberDetail" class="form-label">Номер квартиры</label>
+        <input type="number" formControlName="flatNumber" class="form-control" id="flatNumberDetail" readonly>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn btn-dark" (click)="modal.close('Save click')">Закрыть</button>
+  </div>
+</ng-template>
+
+
+<ng-template #contentEdit let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title-update">Изменить адрес</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"> <span aria-hidden="true">&times;</span> </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="flatForm">
+      <div class="mb-3">
+        <label for="id" class="form-label">Идентификатор</label>
+        <input type="text" formControlName="id" class="form-control" id="id" aria-describedby="serialNumberHelp" readonly>
+      </div>
+      <div class="mb-3">
+        <label for="cityUpdate" class="form-label">Город</label>
+        <input type="text" formControlName="city" class="form-control" id="cityUpdate" aria-describedby="serialNumberHelp" readonly>
+      </div>
+      <div class="mb-3">
+        <label for="streetUpdate" class="form-label">Улица</label>
+        <input type="text" formControlName="street" class="form-control" id="streetUpdate" >
+      </div>
+      <div class="mb-3">
+        <label for="houseNumberUpdate" class="form-label">Номер дома</label>
+        <input type="number" formControlName="houseNumber" class="form-control" id="houseNumberUpdate" >
+      </div>
+      <div class="mb-3">
+        <label for="entranceUpdate" class="form-label">Номер подъезда</label>
+        <input type="number" formControlName="entrance" class="form-control" id="entranceUpdate" >
+      </div>
+      <div class="mb-3">
+        <label for="flatNumberUpdate" class="form-label">Номер квартиры</label>
+        <input type="number" formControlName="flatNumber" class="form-control" id="flatNumberUpdate" >
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <div>  <button data-dismiss="model" class="btn btn-outline-primary" (click)="onSaveEdit()">Сохранить</button> </div>
+    <button type="button" class="btn btn btn-dark" (click)="modal.close('Save click')">Закрыть</button>
+  </div>
+</ng-template>
+
+<ng-template #contentDelete let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Confirm Delete</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"> <span aria-hidden="true">&times;</span>  </button>
+  </div>
+  <div class="modal-body">
+    <h2>Are you sure you want to delete this record.</h2>
+    <div class="border text-center"> <button data-dismiss="modal" class="btn btn-danger" (click)="deleteFlat()">Yes, Delete!</button>  </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Cancel</button>
+  </div>
+</ng-template>

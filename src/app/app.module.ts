@@ -20,8 +20,10 @@ import {AgGridModule} from "ag-grid-angular";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {FormControlComponent} from "./form-control/form-control.component";
 import { UserGagesComponent } from './content/user-gages/user-gages.component';
-import { UserGagesDataComponent } from './user-gages-data/user-gages-data.component';
+import { UserGagesDataComponent } from './content/user-gages-data/user-gages-data.component';
 import {ProfileComponent} from "./content/profile/profile.component";
+import { AllUserComponent } from './all-user/all-user.component';
+import { AllFlatComponent } from './all-flat/all-flat.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,6 +40,8 @@ import {ProfileComponent} from "./content/profile/profile.component";
     ProfileComponent,
     UserGagesComponent,
     UserGagesDataComponent,
+    AllUserComponent,
+    AllFlatComponent,
   ],
   imports: [
     RouterOutlet,

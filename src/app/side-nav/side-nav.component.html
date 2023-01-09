@@ -17,15 +17,6 @@
     </li>
   </ul>
 
-  <ul class="nav-list" [ngClass]="{'nav-list-open': sideNavStatus}" *ngIf="role === 'moderator'">
-    <li class="nav-list-item" *ngFor="let item of moderatorList">
-      <div routerLink="/{{item.route}}"  >
-        <i class="{{item.icon}}"></i>
-        <span>{{item.name}}</span>
-      </div>
-    </li>
-  </ul>
-
   <ul class="nav-list" [ngClass]="{'nav-list-open': sideNavStatus}" *ngIf="role === 'dispatcher'">
     <li class="nav-list-item" *ngFor="let item of dispatcherList">
       <div routerLink="/{{item.route}}">

@@ -1,7 +1,6 @@
 <nav class="navbar navbar-expand navbar-dark bg-dark px-2">
   <div>
-    <label class="navbar-brand px-8" style="color: rgba(75,255,255,0.6); font-weight: bold; font-size: 25px;">APP
-      NAVBAR</label>
+    <label class="navbar-brand px-8" style="color: rgba(75,255,255,0.6); font-weight: bold; font-size: 25px;">МОЁ ЖКХ</label>
   </div>
   <div *ngIf="isLoggedIn" class="side-nav-button p-2 me-3  text-light" (click)="SideNavToggle()">
     <i class="fa-solid fa-bars"></i>
@@ -20,7 +19,7 @@
         <a href="/profile" class="nav-link" routerLink="profile">{{ username }}</a>
       </li>
       <li class="nav-item">
-        <a href class="nav-link" (click)="logout()">LogOut</a>
+        <a href class="nav-link" (click)="logout()">ВЫЙТИ</a>
       </li>
     </ul>
   </div>

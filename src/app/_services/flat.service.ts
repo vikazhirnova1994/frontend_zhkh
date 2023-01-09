@@ -1,6 +1,13 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
+import {Observable} from "rxjs";
+import {ApiResponse} from "../_interface/api-response";
+import {UserPage} from "../_interface/user-page";
+import {FlatPage} from "../_interface/flat-page";
+
+
+const URL = 'http://localhost:8005/api/flat';
 
 @Injectable({
   providedIn: 'root'
@@ -10,18 +17,23 @@ export class FlatService {
   constructor(private http: HttpClient) { }
   baseUrl: string = environment.baseUrl;
 
-  postFlat(data:any) {
-    return this.http.post<any>(this.baseUrl + '/api/flat', data);
-  }
  getAllFlat() {
     return this.http.get<any>(this.baseUrl + '/api/flat/');
   }
 
-  deleteFlat(id: any) {
-    return this.http.delete<any>(this.baseUrl + '/api/flat/' + id);
+  flatData$ = (page: number = 0, size: number = 10): Observable<ApiResponse<FlatPage>> =>
+    this.http.get<ApiResponse<FlatPage>>(URL + `?page=${page}&size=${size}`);
+
+  postFlat(data: any) {
+    return this.http.post<any>(URL + '/new', data);
   }
 
-//  updateStudent(flatModel: any, id: number) {
-    //return this.http.put<any>(this.baseUrl + '/api/flat/' + id, flatModel);
- // }
+  putFlat(data: any, id: string){
+    return this.http.put<any>(URL + `/` + id +`/edit`, data);
+  }
+
+  deleteFlat(id: any) {
+    console.log('????', URL + `/` + id)
+    return this.http.delete<void>(URL + `/` + id);
+  }
 }

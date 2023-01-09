@@ -25,7 +25,7 @@
       <td>{{item.flatNumber}}</td>
 
       <td>
-      <button (click)="edit(item)" data-bs-toggle="modal" data-bs-target="#addModal" class="btn btn-sm btn-warning text-white mx-2">Edit</button>
+      <button (click)="edit(item)" data-bs-toggle="modal" data-bs-target="#editModal" class="btn btn-sm btn-warning text-white mx-2">Edit</button>
         <button (click)="deleteFlat(item.id)" class="btn btn-sm btn-danger">Delete</button>
       </td>
     </tr>
@@ -43,6 +43,11 @@
       </div>
       <div class="modal-body">
         <form [formGroup]="flatForm">
+          <div class="mb-3">
+            <label for="city" class="form-label">Город</label>
+            <input type="text" formControlName="city" class="form-control" id="city"
+                   aria-describedby="serialNumberHelp">
+          </div>
           <div class="mb-3">
             <label for="city" class="form-label">Город</label>
             <input type="text" formControlName="city" class="form-control" id="city"

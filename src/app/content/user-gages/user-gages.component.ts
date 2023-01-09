@@ -3,7 +3,7 @@ import {Observable} from "rxjs";
 import {StorageService} from "../../_services/storage.service";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {UserGagesModal} from "./user-gages.modal";
-import {UserGagesDataModal} from "../../user-gages-data/user-gages-data.modal";
+import {UserGagesDataModal} from "../user-gages-data/user-gages-data.modal";
 
 @Component({
   selector: 'app-user-gages',
@@ -37,12 +37,9 @@ export class UserGagesComponent implements OnInit {
   }
 
   onLoad() {
-    // this.rowData$ = this.http.get<any[]>('http://localhost:8005/api/gage/user-gages');
-    //проверить приходят ли данные
     this.http.get<Array<UserGagesModal>>('http://localhost:8005/api/gage/user-gages').subscribe(
       (data: Array<UserGagesModal>) => {
-        console.log("!!!!!!!!!!!!!!!", data);
-       // this.rowData$ = response;
+       // console.log("!!!!!!!!!!!!!!!", data);
         this.userGageList = data;
       });
   }
@@ -50,20 +47,15 @@ export class UserGagesComponent implements OnInit {
   lastGageData(){
     this.http.get<Array<UserGagesDataModal>>('http://localhost:8005/api/gage-data/user/last').subscribe(
       (data: Array<UserGagesDataModal>) => {
-        console.log("!!!!!!!!!!!!!!!", data);
+       //console.log("!!!!!!!!!!!!!!!", data);
         this.userGageDataList = data
       });
   }
 
   loadLastData(id: string) {
- /*   let params = new HttpParams();
-    params = params.append('gageId', id);*/
-
    this.http.get<Array<UserGagesDataModal>>('http://localhost:8005/api/gage-data/user/'+id/*, {params: params}*/).subscribe(
       (data: Array<UserGagesDataModal>) => {
-        console.log("!!!!!!!!!!!!!!!", data);
-        // this.rowData$ = response;
-      //  this.userGageList = data;
+       // console.log("!!!!!!!!!!!!!!!", data);
         this.userGageDataByIdList = data
       });
   }

@@ -8,7 +8,8 @@ import {LoginComponent} from "./content/form/login/login.component";
 import {SignupComponent} from "./content/form/signup/signup.component";
 import {ProfileComponent} from "./content/profile/profile.component";
 import {UserGagesComponent} from "./content/user-gages/user-gages.component";
-import {UserGagesDataComponent} from "./user-gages-data/user-gages-data.component";
+import {UserGagesDataComponent} from "./content/user-gages-data/user-gages-data.component";
+import {AllFlatComponent} from "./all-flat/all-flat.component";
 
 const routes: Routes = [
  { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -22,8 +23,8 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'user-gages', component: UserGagesComponent },
   { path: 'user-gages-data', component: UserGagesDataComponent },
+  { path: 'all-flat', component: AllFlatComponent },
   { path: 'sign-out', redirectTo: 'login'  },
-
 ];
 
 @NgModule({
