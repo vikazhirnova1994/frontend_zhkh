@@ -3,9 +3,9 @@ import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {Observable} from "rxjs";
 import {ApiResponse} from "../_interface/api-response";
-import {UserPage} from "../_interface/user-page";
 import {FlatPage} from "../_interface/flat-page";
-
+import {TypeGage} from "../_interface/type-gage";
+import {GageAddress} from "../_interface/gage-address";
 
 const URL = 'http://localhost:8005/api/flat';
 
@@ -21,7 +21,7 @@ export class FlatService {
     return this.http.get<any>(this.baseUrl + '/api/flat/');
   }
 
-  flatData$ = (page: number = 0, size: number = 10): Observable<ApiResponse<FlatPage>> =>
+  flatData$ = (page: number = 0, size: number = 5): Observable<ApiResponse<FlatPage>> =>
     this.http.get<ApiResponse<FlatPage>>(URL + `?page=${page}&size=${size}`);
 
   postFlat(data: any) {
@@ -36,4 +36,9 @@ export class FlatService {
     console.log('????', URL + `/` + id)
     return this.http.delete<void>(URL + `/` + id);
   }
+
+  getGageAddress(){
+    return this.http.get<GageAddress[]>(URL + '/address');
+  }
+
 }

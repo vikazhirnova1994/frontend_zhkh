@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AllUserComponent } from './all-user.component';
+import { AllGageComponent } from './all-gage.component';
 
-describe('AllUserComponent', () => {
-  let component: AllUserComponent;
-  let fixture: ComponentFixture<AllUserComponent>;
+describe('AllGageComponent', () => {
+  let component: AllGageComponent;
+  let fixture: ComponentFixture<AllGageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AllUserComponent ]
+      declarations: [ AllGageComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AllUserComponent);
+    fixture = TestBed.createComponent(AllGageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,27 +1,13 @@
 import {Component, ElementRef, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {BehaviorSubject, catchError, Observable, of, startWith} from "rxjs";
-import {ApiResponse} from "../_interface/api-response";
+import {ApiResponse} from "../../_interface/api-response";
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
-import {StorageService} from "../_services/storage.service";
+import {StorageService} from "../../_services/storage.service";
 import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {map} from "rxjs/operators";
-import {FlatPage} from "../_interface/flat-page";
-import {FlatService} from "../_services/flat.service";
+import {FlatPage} from "../../_interface/flat-page";
+import {FlatService} from "../../_services/flat.service";
 import {FormBuilder, FormControl, FormGroup, NgForm} from "@angular/forms";
-import {FlatData} from "../_interface/flat-data";
-
-
-export class Flat {
-  constructor(
-    public  city: string,
-    public street: string,
-    public houseNumber: string,
-    public entrance: string,
-    public flatNumber: string,
-  ) {
-
-  }
-}
 
 @Component({
   selector: 'app-all-flat',
@@ -78,7 +64,7 @@ export class AllFlatComponent implements OnInit {
       map((response: ApiResponse<FlatPage>) => {
         this.responseSubject.next(response);
         this.currentPageSubject.next(pageNumber);
-        console.log("!!!!!!!!!!!!!!!", response);
+        //console.log("!!!!!!!!!!!!!!!", response);
         return ({appState: 'APP_LOADED', appData: response});
       }),
       startWith({appState: 'APP_LOADED', appData: this.responseSubject.value}),

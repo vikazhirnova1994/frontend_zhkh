@@ -22,8 +22,9 @@ import {FormControlComponent} from "./form-control/form-control.component";
 import { UserGagesComponent } from './content/user-gages/user-gages.component';
 import { UserGagesDataComponent } from './content/user-gages-data/user-gages-data.component';
 import {ProfileComponent} from "./content/profile/profile.component";
-import { AllUserComponent } from './all-user/all-user.component';
-import { AllFlatComponent } from './all-flat/all-flat.component';
+import { AllUserComponent } from './content/all-user/all-user.component';
+import { AllFlatComponent } from './content/all-flat/all-flat.component';
+import { AllGageComponent } from './content/all-gage/all-gage.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,6 +43,7 @@ import { AllFlatComponent } from './all-flat/all-flat.component';
     UserGagesDataComponent,
     AllUserComponent,
     AllFlatComponent,
+    AllGageComponent,
   ],
   imports: [
     RouterOutlet,
