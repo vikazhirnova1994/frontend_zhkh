@@ -1,5 +1,7 @@
 <div class="container">
   <h3 class="fw-bold">Ваши переданные показания</h3>
+  <br>
+  <h5 *ngIf=!canAddDate style="color: crimson" >Передавать показания можно с 20  по 25 число каждого месяца</h5>
   <div class="border" *ngIf=canAddDate>
     <button class="btn btn-md btn-outline-primary" (click)="openModel()" >
       <i id="myicon" class="fa-regular fa-plus"></i> Добавить показания </button>
@@ -40,7 +42,7 @@
               <td><span class="badge" [ngClass]="[
               gageDate.typeGage === 'THERMAL_ENERGY' ? 'bg-success' : '',
               gageDate.typeGage ===  'ELECTRICAL_ENERGY' ? 'bg-primary' : '',
-              gageDate.typeGage === 'COLD_WATER' ? 'bg-info' : '']">{{gageDate.typeGage}} </span></td>
+              gageDate.typeGage === 'WATER' ? 'bg-info' : '']">{{gageDate.typeGage}} </span></td>
               <td>{{gageDate.serialNumber}}</td>
               <td>{{gageDate.data}}</td>
               <td>{{gageDate.departureDate}}</td>
@@ -112,7 +114,7 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button data-dismiss="model" class="btn btn-info">Submit</button>
-    <button type="button" class="btn" (click)="modal.close('Save click')">Close</button>
+    <button data-dismiss="model" class="btn btn-info" (click)="saveGageDate()">Сохранить</button>
+    <button type="button" class="btn btn-dark" (click)="modal.close('Save click')">Закрыть</button>
   </div>
 </ng-template>

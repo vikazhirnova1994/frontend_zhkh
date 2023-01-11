@@ -9,7 +9,7 @@ import {AllFlatComponent} from "./content/all-flat/all-flat.component";
 import {AllGageComponent} from "./content/all-gage/all-gage.component";
 
 const routes: Routes = [
- { path: '', pathMatch: 'full', redirectTo: 'home' },
+  { path: '', pathMatch: 'full', redirectTo: 'home' },
   { path: 'login', component: LoginComponent },
   { path: 'sign-up', component: SignupComponent },
   { path: 'profile', component: ProfileComponent },

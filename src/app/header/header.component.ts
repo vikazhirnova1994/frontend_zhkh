@@ -15,25 +15,18 @@ export class HeaderComponent implements OnInit {
   @Output() sideNavToggled = new EventEmitter<boolean>();
   menuStatus: boolean = false;
 
-  private roles: string[] = [];
-  isLoggedIn = false;
-  // showAdminBoard = false;
-  // showModeratorBoard = false;
-  username?: string;
+  public roles: string[] = [];
+  public isLoggedIn = false;
+  public username?: string;
 
-  constructor(private storageService: StorageService, private authService: AuthService, private router: Router) {
-  }
+  constructor(private storageService: StorageService,
+              private authService: AuthService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.isLoggedIn = this.storageService.isLoggedIn();
-
     if (this.isLoggedIn) {
       const user = this.storageService.getUsername();
-      // this.roles = user.roles;
-
-      //  this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
-      // this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
-
       this.username = user;
     }
   }
@@ -44,11 +37,9 @@ export class HeaderComponent implements OnInit {
   }
 
   logout(): void {
-
-
     this.authService.logout().subscribe({
       next: res => {
-        console.log(res);
+        console.log("authService logout", res);
         this.storageService.clean();
         this.router.navigate(['/login']);
         // window.location.reload();

@@ -1,4 +1,4 @@
-import {Component,  OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../../_services/auth.service';
 import {FormControl, FormGroup, Validators, FormBuilder, ValidationErrors} from "@angular/forms";
 import {FormControlModel} from "../../../form-control/form.model";
@@ -9,19 +9,14 @@ import {publish} from "rxjs";
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css']
 })
-export class SignupComponent implements OnInit  {
-   registerModel: any = {  username: null,  contractNumber: null,  password: null  };
-   isSuccessful = false;
-   isSignUpFailed = false;
-   errorMessage = '';
+export class SignupComponent implements OnInit {
 
   public form: FormGroup;
+  public isSuccessful = false;
+  public isSignUpFailed = false;
+  public errorMessage = '';
 
-  private formActive = true;
-
-
-  constructor(private authService: AuthService) {
-  }
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -43,7 +38,7 @@ export class SignupComponent implements OnInit  {
         placeholder: 'Имя пользователя',
         name: "username",
         validation: {
-         required: 'Пожалуйста, введите логин',
+          required: 'Пожалуйста, введите логин',
         },
         icon: 'fas fa-user'
       }, '', [
@@ -54,7 +49,7 @@ export class SignupComponent implements OnInit  {
         placeholder: 'Пароль',
         name: "password",
         validation: {
-         required: 'Пожалуйста, введите пароль',
+          required: 'Пожалуйста, введите пароль',
           pattern: 'Введите не менее 8 символов'
         },
         icon: 'fa-solid fa-key'
@@ -64,12 +59,14 @@ export class SignupComponent implements OnInit  {
       ])
     });
   }
+
   public getControl(): Array<FormControlModel> {
     return Object.values(this.form.controls) as Array<FormControlModel>;
   }
+
   onSubmit() {
     console.log(this.form.value)
-    const { username, contractNumber, password } = this.form.value;
+    const {username, contractNumber, password} = this.form.value;
     this.authService.register(username, contractNumber, password).subscribe({
       next: data => {
         console.log(data);

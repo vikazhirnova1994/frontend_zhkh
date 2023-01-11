@@ -2,24 +2,24 @@
   pointer-events: none;
   opacity: 0.6;
 }
+
 .pointer {
   cursor: pointer;
 }
-.modal-header, .modal-body, .modal-footer{
+
+.modal-header, .modal-body, .modal-footer {
   background-color: #111418ee;
   color: white;
-}
-.container{
-  margin-top:5%;
 }
 
 .border {
   padding: 10px;
 }
 
-table .btn{
-margin: 2px;
+table .btn {
+  margin: 2px;
 }
-.btn{
+
+.btn {
   margin-right: 10px;
 }

@@ -16,28 +16,30 @@ import {FormControl, FormGroup, NgForm} from "@angular/forms";
 })
 export class UserGagesDataComponent implements OnInit {
 
-  isLoggedIn = false;
-  gageDateSate$ = Observable<{ appState: string, appData?: ApiResponse<UserPage>, error?: HttpErrorResponse }>;
-  private responseSubject = new BehaviorSubject<ApiResponse<UserPage>>(null);
-  private currentPageSubject = new BehaviorSubject<number>(0);
-  currentPage$ = this.currentPageSubject.asObservable();
-  closeResult: string;
-  gageDataModel: any;
-  canAddDate: Boolean;
+  public gageDateSate$ = Observable<{ appState: string, appData?: ApiResponse<UserPage>, error?: HttpErrorResponse }>;
+  private isLoggedIn = false;
+  public responseSubject = new BehaviorSubject<ApiResponse<UserPage>>(null);
+  public currentPageSubject = new BehaviorSubject<number>(0);
+  public currentPage$ = this.currentPageSubject.asObservable();
+  public closeResult: string;
+  public gageDataModel: any;
+  public canAddDate: Boolean;
 
-  constructor(private storageService: StorageService, private http: HttpClient,
+  constructor(private storageService: StorageService,
+              private http: HttpClient,
               private gagaDataService: GageDataService,
               private modalService: NgbModal) {
   }
 
   @ViewChild('content') addView!: ElementRef
+
   ngOnInit(): void {
     this.isLoggedIn = this.storageService.isLoggedIn();
-   // console.log("this.isLoggedIn", this.isLoggedIn);
+    console.log("this.isLoggedIn", this.isLoggedIn);
 
     this.gagaDataService.canAddGageData().subscribe(
       (data: Boolean) => {
-        //console.log("!!!!!!!!!!!!!!!", data);
+        console.log("canAddGageData: ", data);
         this.canAddDate = data
       });
 
@@ -47,7 +49,7 @@ export class UserGagesDataComponent implements OnInit {
         map((response: ApiResponse<UserPage>) => {
           this.responseSubject.next(response);
           this.currentPageSubject.next(response.data.page.number);
-          //console.log("!!!!!!!!!!!!!!!", response);
+          console.log("gageDateSate$ result: ", response);
           return ({appState: 'APP_LOADED', appData: response});
         }),
         startWith({appState: 'APP_LOADING'}),
@@ -65,10 +67,10 @@ export class UserGagesDataComponent implements OnInit {
   });
 
   saveGageDate() {
-    // console.log("!!!!!!!!!!!!!!!", this.gageForm.value);
+    console.log("gageForm.value: ", this.gageForm.value);
     this.gagaDataService.postGageData(this.gageForm.value)
       .subscribe((result) => {
-       // console.log("!!!!!!!!!!!!!!!", result);
+        console.log("postGageData: ", result);
         this.ngOnInit(); //reload the table
       });
     this.modalService.dismissAll(); //dismiss the modal
@@ -80,7 +82,7 @@ export class UserGagesDataComponent implements OnInit {
       map((response: ApiResponse<UserPage>) => {
         this.responseSubject.next(response);
         this.currentPageSubject.next(pageNumber);
-       // console.log("!!!!!!!!!!!!!!!", response);
+        console.log("gageDateSate$: ", response);
         return ({appState: 'APP_LOADED', appData: response});
       }),
       startWith({appState: 'APP_LOADED', appData: this.responseSubject.value}),
@@ -95,7 +97,12 @@ export class UserGagesDataComponent implements OnInit {
   }
 
   openModel() {
-    this.modalService.open(this.addView, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+    this.modalService.open(this.addView, {
+      centered: true,
+      backdrop: 'static',
+      size: 'lg',
+      ariaLabelledBy: 'modal-basic-title'
+    }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -114,7 +121,7 @@ export class UserGagesDataComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     this.gageDataModel = Object.assign({}, form.value);
-    //console.log("!!!!!!!!!!!!!!!", this.gageDataModel);
+    console.log("gageDataModel: ", this.gageDataModel);
     this.modalService.dismissAll(); //dismiss the modal
   }
 }

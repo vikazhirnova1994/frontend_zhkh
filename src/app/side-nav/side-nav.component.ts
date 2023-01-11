@@ -17,24 +17,15 @@ export class SideNavComponent implements OnInit {
 
   userList = [
     {number: '1', route: 'profile', name: 'Главная', icon: 'fa-solid fa-house', role: 'user'},
-    {number: '2', route: 'user-gages', name: 'Приборы', icon: 'fa-solid fa-gauge-high', role: 'user'},
-    {number: '3', route: 'user-gages-data', name: 'Показания', icon: 'fas fa-pen', role: 'user'},
-    //{number: '4', route: 'user-claims', name: 'Заявки', icon: 'fa fa-credit-card', role: 'user'},
+    {number: '2', route: 'user-gages', name: 'Мои Приборы', icon: 'fa-solid fa-gauge-high', role: 'user'},
+    {number: '3', route: 'user-gages-data', name: 'Мои Показания', icon: 'fas fa-pen', role: 'user'},
   ];
 
   adminList = [
     {number: '1', route: 'profile', name: 'Главная', icon: 'fa-solid fa-house', role: 'admin'},
-    //{number: '2', route: 'all-user', name: 'Пользователи', icon: 'fa fa-user-o', role: 'admin'},
     {number: '3', route: 'all-flat', name: 'Квартиры', icon: 'fa-solid fa-house', role: 'admin'},
-   // {number: '4', route: 'all-contract', name: 'Договоры', icon: 'fa-solid fa-chart-line', role: 'admin'},
     {number: '5', route: 'all-gage', name: 'Приборы', icon: 'fa-solid fa-gear', role: 'admin'},
   ];
-
-  /*dispatcherList = [
-    {number: '1', route: 'all_indication', name: 'Показания', icon: 'fa-solid fa-house', role: 'dispatcher'},
-    {number: '2', route: 'debtors', name: 'Должники', icon: 'fa-solid fa-chart-line', role: 'dispatcher'},
-    {number: '3', route: 'claims', name: 'Заявки', icon: 'fa-solid fa-gear', role: 'dispatcher'},
-  ];*/
 
   constructor(private storageService: StorageService) {
   }
@@ -42,7 +33,6 @@ export class SideNavComponent implements OnInit {
   ngOnInit(): void {
     if (this.storageService.getToken()) {
       this.isLoggedIn = this.storageService.isLoggedIn();
-      //this.role = this.storageService.getAuthorities();
       switch (this.storageService.getAuthorities()) {
         case '["USER"]': {
           this.role = "user"; break;

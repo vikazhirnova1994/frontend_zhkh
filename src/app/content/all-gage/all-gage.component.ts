@@ -11,7 +11,6 @@ import {ModalDismissReasons, NgbDate, NgbModal} from "@ng-bootstrap/ng-bootstrap
 import {NgForm} from "@angular/forms";
 import {TypeGage} from "../../_interface/type-gage";
 import {GageAddress} from "../../_interface/gage-address";
-import {FlatPage} from "../../_interface/flat-page";
 
 @Component({
   selector: 'app-all-gage',
@@ -20,20 +19,17 @@ import {FlatPage} from "../../_interface/flat-page";
 })
 export class AllGageComponent implements OnInit {
 
-  isLoggedIn = false;
-  gageState$ = Observable<{ appState: string, appData?: ApiResponse<GagePage>, error?: HttpErrorResponse }>;
-  private responseSubject = new BehaviorSubject<ApiResponse<GagePage>>(null);
-  private currentPageSubject = new BehaviorSubject<number>(0);
-  currentPage$ = this.currentPageSubject.asObservable();
-
-  closeResult: string;
-
-  gageModel: any;
-  typeGages: TypeGage[];
-  gagesAddress: GageAddress[];
-  installationDate: NgbDate;
-
-  deleteId: string;
+  public gageState$ = Observable<{ appState: string, appData?: ApiResponse<GagePage>, error?: HttpErrorResponse }>;
+  public isLoggedIn = false;
+  public responseSubject = new BehaviorSubject<ApiResponse<GagePage>>(null);
+  public currentPageSubject = new BehaviorSubject<number>(0);
+  public currentPage$ = this.currentPageSubject.asObservable();
+  public closeResult: string;
+  public gageModel: any;
+  public typeGages: TypeGage[];
+  public gagesAddress: GageAddress[];
+  public installationDate: NgbDate;
+  public deleteId: string;
 
   @ViewChild('content') addView!: ElementRef;
   @ViewChild('contentDelete') deleteView!: ElementRef;
@@ -41,12 +37,10 @@ export class AllGageComponent implements OnInit {
   constructor(private storageService: StorageService,
               private flatService: FlatService,
               private gageService: GageService,
-              private modalService: NgbModal,) {
-  }
+              private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.isLoggedIn = this.storageService.isLoggedIn();
-
     if (this.isLoggedIn) {
       // @ts-ignore
       this.gageService.getTypeGages()
@@ -58,7 +52,7 @@ export class AllGageComponent implements OnInit {
       this.flatService.getGageAddress()
         .subscribe((result) => {
           this.gagesAddress = result;
-          console.log("@@", this.gagesAddress);
+          console.log("GageAddress: ", this.gagesAddress);
         });
 
       // @ts-ignore
@@ -66,19 +60,16 @@ export class AllGageComponent implements OnInit {
         map((response: ApiResponse<GagePage>) => {
           this.responseSubject.next(response);
           this.currentPageSubject.next(response.data.page.number);
-          console.log("!!!!!!!!!!!!!!!", response);
+          console.log("gageState$: ", response);
           return ({appState: 'APP_LOADED', appData: response});
         }),
         startWith({appState: 'APP_LOADING'}),
         catchError((error: HttpErrorResponse) => of({appState: 'APP_ERROR', error}))
       );
     }
-
   }
 
   openContent() {
-
-
     this.modalService.open(this.addView, {
       centered: true,
       backdrop: 'static',
@@ -106,7 +97,7 @@ export class AllGageComponent implements OnInit {
     console.log("!!!!!!!!!!!!!!!", form.value);
     this.gageService.postGage(form.value)
       .subscribe((result) => {
-        console.log("!!!!!!!!!!!!!!!", result);
+        console.log("postGage: ", result);
         this.ngOnInit(); //reload the table
       });
     this.modalService.dismissAll(); //dismiss the modal*/
@@ -115,7 +106,6 @@ export class AllGageComponent implements OnInit {
   deleteGage() {
     this.gageService.deleteGage(this.deleteId)
       .subscribe((result) => {
-        console.log("!!!!!!!!!!!!!!!", result);
         this.ngOnInit(); //reload the table
         this.modalService.dismissAll();
       });
@@ -123,8 +113,8 @@ export class AllGageComponent implements OnInit {
 
   openContentDelete(id: any) {
     this.deleteId = id;
-    console.log("!!!!!!!!!!!!!!!",  this.deleteId);
-    this.modalService.open(this.deleteView, { centered: true,  backdrop: 'static',  size: 'lg' });
+    console.log("deleteId: ", this.deleteId);
+    this.modalService.open(this.deleteView, {centered: true, backdrop: 'static', size: 'lg'});
   }
 
   goToPage(pageNumber: number = 0): void {
@@ -133,7 +123,7 @@ export class AllGageComponent implements OnInit {
       map((response: ApiResponse<GagePage>) => {
         this.responseSubject.next(response);
         this.currentPageSubject.next(pageNumber);
-        //console.log("!!!!!!!!!!!!!!!", response);
+        console.log("gageState$: ", response);
         return ({appState: 'APP_LOADED', appData: response});
       }),
       startWith({appState: 'APP_LOADED', appData: this.responseSubject.value}),

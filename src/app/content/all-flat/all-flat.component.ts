@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {BehaviorSubject, catchError, Observable, of, startWith} from "rxjs";
 import {ApiResponse} from "../../_interface/api-response";
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
@@ -16,17 +16,15 @@ import {FormBuilder, FormControl, FormGroup, NgForm} from "@angular/forms";
 })
 export class AllFlatComponent implements OnInit {
 
-  isLoggedIn = false;
-  flatState$ = Observable<{ appState: string, appData?: ApiResponse<FlatPage>, error?: HttpErrorResponse }>;
-  private responseSubject = new BehaviorSubject<ApiResponse<FlatPage>>(null);
-  private currentPageSubject = new BehaviorSubject<number>(0);
-  currentPage$ = this.currentPageSubject.asObservable();
-  closeResult: string;
-  flatModel: any;
-  flatForm: FormGroup;
-
-  flatDetailsModel: any;
-  deleteId: string;
+  public flatState$ = Observable<{ appState: string, appData?: ApiResponse<FlatPage>, error?: HttpErrorResponse }>;
+  public isLoggedIn = false;
+  public responseSubject = new BehaviorSubject<ApiResponse<FlatPage>>(null);
+  public currentPageSubject = new BehaviorSubject<number>(0);
+  public currentPage$ = this.currentPageSubject.asObservable();
+  public closeResult: string;
+  public flatModel: any;
+  public flatForm: FormGroup;
+  public deleteId: string;
 
   @ViewChild('content') addView!: ElementRef;
   @ViewChild('contentDetails') detailView!: ElementRef;
@@ -49,7 +47,7 @@ export class AllFlatComponent implements OnInit {
         map((response: ApiResponse<FlatPage>) => {
           this.responseSubject.next(response);
           this.currentPageSubject.next(response.data.page.number);
-          console.log("!!!!!!!!!!!!!!!", response);
+          console.log("flatState$: ", response);
           return ({appState: 'APP_LOADED', appData: response});
         }),
         startWith({appState: 'APP_LOADING'}),
@@ -64,7 +62,7 @@ export class AllFlatComponent implements OnInit {
       map((response: ApiResponse<FlatPage>) => {
         this.responseSubject.next(response);
         this.currentPageSubject.next(pageNumber);
-        //console.log("!!!!!!!!!!!!!!!", response);
+        console.log("flatState$: ", response);
         return ({appState: 'APP_LOADED', appData: response});
       }),
       startWith({appState: 'APP_LOADED', appData: this.responseSubject.value}),
@@ -79,17 +77,22 @@ export class AllFlatComponent implements OnInit {
   }
 
   saveFlat() {
-    console.log("!!!!!!!!!!!!!!!", this.flatForm.value);
+    console.log("flatForm.value: ", this.flatForm.value);
     this.flatService.postFlat(this.flatForm.value)
       .subscribe((result) => {
-        //console.log("!!!!!!!!!!!!!!!", result);
+        console.log("postFlat: ", result);
         this.ngOnInit(); //reload the table
       });
     this.modalService.dismissAll(); //dismiss the modal
   }
 
   openContent() {
-    this.modalService.open(this.addView, { centered: true,  backdrop: 'static',  size: 'lg', ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+    this.modalService.open(this.addView, {
+      centered: true,
+      backdrop: 'static',
+      size: 'lg',
+      ariaLabelledBy: 'modal-basic-title'
+    }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -106,63 +109,60 @@ export class AllFlatComponent implements OnInit {
     }
   }
 
-  createFlatForm(){
+  createFlatForm() {
     this.flatForm = this.formBuilder.group(
-      { id:[''],  city: [''],  street: [''],  houseNumber:[''],  entrance: [],  flatNumber:[] } );
+      {id: [''], city: [''], street: [''], houseNumber: [''], entrance: [], flatNumber: []});
   }
 
- openContentDetails(city: string, street: string, houseNumber: string, entrance: string, flatNumber: string) {
-    //console.log("!!!!!!!!!!!!!!!", city.valueOf());
-    this.modalService.open(this.detailView, {centered: true,  backdrop: 'static',    size: 'lg' });
+  openContentDetails(city: string, street: string, houseNumber: string, entrance: string, flatNumber: string) {
+    console.log("city value: ", city.valueOf());
+    this.modalService.open(this.detailView, {centered: true, backdrop: 'static', size: 'lg'});
     this.flatForm.controls['city'].setValue(city.valueOf())
     this.flatForm.controls['street'].setValue(street.valueOf())
     this.flatForm.controls['houseNumber'].setValue(houseNumber.valueOf())
     this.flatForm.controls['entrance'].setValue(entrance.valueOf())
     this.flatForm.controls['flatNumber'].setValue(flatNumber.valueOf())
   }
+
   openContentDetailsForUpdate(id: any, city: any, street: any, houseNumber: any, entrance: any, flatNumber: any) {
-    // console.log("!!!!!!!!!!!!!!!",   this.flatForm.value.flatNumber);
-    this.modalService.open(this.editView, { centered: true, backdrop: 'static',  size: 'lg'  });
+    console.log("flatForm.value.flatNumber: ", this.flatForm.value.flatNumber);
+    this.modalService.open(this.editView, {centered: true, backdrop: 'static', size: 'lg'});
     this.flatForm.patchValue(
-      { id: id, city: city,  street: street,  houseNumber: houseNumber,  entrance: entrance,  flatNumber: flatNumber, });
+      {id: id, city: city, street: street, houseNumber: houseNumber, entrance: entrance, flatNumber: flatNumber,});
   }
 
   openContentDelete(id: any) {
     this.deleteId = id;
-    console.log("!!!!!!!!!!!!!!!",  this.deleteId);
+    console.log("!!!!!!!!!!!!!!!", this.deleteId);
 
-    this.modalService.open(this.deleteView, { centered: true,  backdrop: 'static',  size: 'lg' });
+    this.modalService.open(this.deleteView, {centered: true, backdrop: 'static', size: 'lg'});
   }
 
   onSubmit(form: NgForm) {
-    console.log("!!!!!!!!!!!!!!!", form.value);
-
- this.flatModel = Object.assign({}, form.value);
-    console.log("!!!!!!!!!!!!!!!", form.value);
+    console.log("form.value: ", form.value);
+    this.flatModel = Object.assign({}, form.value);
     this.flatService.postFlat(form.value)
       .subscribe((result) => {
-        console.log("!!!!!!!!!!!!!!!", result);
+        console.log("postFlat: ", result);
         this.ngOnInit(); //reload the table
       });
     this.modalService.dismissAll(); //dismiss the modal
   }
 
   onSaveEdit() {
-   // console.log("!!!!!!!!!!!!!!!",   this.flatForm.value.id);
+    console.log("this.flatForm.value.id: ", this.flatForm.value.id);
     this.flatService.putFlat(this.flatForm.value, this.flatForm.value.id)
       .subscribe((result) => {
-       // console.log("!!!!!!!!!!!!!!!", result);
         this.ngOnInit(); //reload the table
         this.modalService.dismissAll();
       });
   }
 
   deleteFlat() {
-       this.flatService.deleteFlat(this.deleteId)
-         .subscribe((result) => {
-           console.log("!!!!!!!!!!!!!!!", result);
-           this.ngOnInit(); //reload the table
-           this.modalService.dismissAll();
-         });
+    this.flatService.deleteFlat(this.deleteId)
+      .subscribe((result) => {
+        this.ngOnInit(); //reload the table
+        this.modalService.dismissAll();
+      });
   }
 }

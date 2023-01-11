@@ -8,10 +8,10 @@
   <div class="side-nav-log">
     <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
       <li class="nav-item">
-        <a href="/sign-up" class="nav-link" routerLink="sign-up">Sign Up</a>
+        <a href="/sign-up" class="nav-link" routerLink="sign-up">Регистрация</a>
       </li>
       <li class="nav-item">
-        <a href="/login" class="nav-link" routerLink="login">Login</a>
+        <a href="/login" class="nav-link" routerLink="login">Авторизация</a>
       </li>
     </ul>
     <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
@@ -19,7 +19,7 @@
         <a href="/profile" class="nav-link" routerLink="profile">{{ username }}</a>
       </li>
       <li class="nav-item">
-        <a href class="nav-link" (click)="logout()">ВЫЙТИ</a>
+        <a href class="nav-link" (click)="logout()">Выйти</a>
       </li>
     </ul>
   </div>

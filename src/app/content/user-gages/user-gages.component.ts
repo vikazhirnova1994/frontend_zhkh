@@ -12,12 +12,11 @@ import {UserGagesDataModal} from "../user-gages-data/user-gages-data.modal";
 })
 export class UserGagesComponent implements OnInit {
 
-  userGageList: Array<UserGagesModal>;
-  userGageDataList: Array<UserGagesDataModal>;
-  userGageDataByIdList: Array<UserGagesDataModal>;
-
-  rowData$: Observable<any[]>;
-  isLoggedIn = false;
+  public rowData$: Observable<any[]>;
+  public userGageList: Array<UserGagesModal>;
+  public userGageDataList: Array<UserGagesDataModal>;
+  public userGageDataByIdList: Array<UserGagesDataModal>;
+  public isLoggedIn = false;
 
   constructor(private storageService: StorageService, private http: HttpClient) {
     this.userGageList = new Array<UserGagesModal>();
@@ -27,7 +26,6 @@ export class UserGagesComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoggedIn = this.storageService.isLoggedIn();
-
     if(this.isLoggedIn){
       setTimeout(() => {
         this.onLoad();  }, 300);
@@ -39,7 +37,7 @@ export class UserGagesComponent implements OnInit {
   onLoad() {
     this.http.get<Array<UserGagesModal>>('http://localhost:8005/api/gage/user-gages').subscribe(
       (data: Array<UserGagesModal>) => {
-       // console.log("!!!!!!!!!!!!!!!", data);
+        console.log("Array of UserGagesModal: ", data);
         this.userGageList = data;
       });
   }
@@ -47,15 +45,15 @@ export class UserGagesComponent implements OnInit {
   lastGageData(){
     this.http.get<Array<UserGagesDataModal>>('http://localhost:8005/api/gage-data/user/last').subscribe(
       (data: Array<UserGagesDataModal>) => {
-       //console.log("!!!!!!!!!!!!!!!", data);
+        console.log("Array of UserGagesModal: ", data);
         this.userGageDataList = data
       });
   }
 
   loadLastData(id: string) {
-   this.http.get<Array<UserGagesDataModal>>('http://localhost:8005/api/gage-data/user/'+id/*, {params: params}*/).subscribe(
+    this.http.get<Array<UserGagesDataModal>>('http://localhost:8005/api/gage-data/user/'+id).subscribe(
       (data: Array<UserGagesDataModal>) => {
-       // console.log("!!!!!!!!!!!!!!!", data);
+        console.log("Array of UserGagesModal: ", data);
         this.userGageDataByIdList = data
       });
   }
