@@ -74,7 +74,7 @@
 
 <ng-template #content let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Добавить новый адрес</h4>
+    <h4 class="modal-title" id="modal-basic-title">Добавить новый ИПУ</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -113,7 +113,7 @@
       <div class="form-group">
         <label for="address">Место установки</label>
         <select class="form-control" name="address" id="address" ngModel>
-          <option [ngValue]="null" disabled>Выберите метсо установки ИПУ</option>
+          <option [ngValue]="null" disabled>Выберите место установки ИПУ</option>
           <option *ngFor="let gageAddress of gagesAddress"
                   [ngValue]="gageAddress.address">{{gageAddress.address}}</option>
         </select>
@@ -135,7 +135,7 @@
       aria-hidden="true">&times;</span></button>
   </div>
   <div class="modal-body">
-    <h6>Вы уверены, что хотите удалить запись?</h6>
+    <h6>Вы уверены, снять ИПУ с места установки?</h6>
     <div class="border text-center">
       <button data-dismiss="modal" class="btn btn-danger" (click)="deleteGage()">Да!</button>
     </div>
