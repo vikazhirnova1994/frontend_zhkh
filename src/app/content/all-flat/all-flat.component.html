@@ -1,5 +1,5 @@
 <div class="container">
-  <h3 class="fw-bold">Список квартир</h3>
+  <h3 class="fw-bold" style=" text-align: center;">Список квартир</h3>
   <div class="border">
     <button class="btn btn-md btn-outline-primary" (click)="openContent()"> <i id="myicon" class="fa-regular fa-plus"></i> Добавить </button>
   </div>
@@ -32,19 +32,18 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let flat of state.appData.data.page.content; let i = index;">
+            <tr *ngFor="let flat of state.appData.data.page.content; let i = index;" style="color: #8e9a9d">
               <th scope="row"> {{i + 1 }} </th>
               <td>{{flat.city}}</td>
               <td>{{flat.street}}</td>
               <td>{{flat.houseNumber}}</td>
               <td>{{flat.entrance}}</td>
               <td>{{flat.flatNumber}}</td>
-              <td>
+              <td style=" text-align: center;">
                 <button (click)="openContentDetails(flat.city, flat.street, flat.houseNumber, flat.entrance, flat.flatNumber)"
                         data-bs-toggle="modal" data-bs-target="#detailsModal" class="btn btn-outline-primary text-white mx-2">Подробнее </button>
                 <button (click)="openContentDetailsForUpdate(flat.id, flat.city, flat.street, flat.houseNumber, flat.entrance, flat.flatNumber)"
                         data-bs-toggle="modal" data-bs-target="#detailsModal"  class="btn btn-outline-primary text-white mx-2">Изменить </button>
-               <!-- <button (click)="openContentDelete(flat.id)" class="btn btn-outline-primary text-white mx-2">Удалить</button>-->
               </td>
             </tr>
             </tbody>

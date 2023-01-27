@@ -1,7 +1,8 @@
 <div class="container">
-  <h3 class="fw-bold">Ваши переданные показания</h3>
+  <h3 class="fw-bold" style=" text-align: center;">Переданные показания</h3>
+  <h5 style=" text-align: center; color: darkcyan">{{userAddress}}</h5>
   <br>
-  <h5 *ngIf=!canAddDate style="color: crimson" >Передавать показания можно с 20  по 25 число каждого месяца</h5>
+  <h5 *ngIf=!canAddDate style="color: crimson" >  Передавать показания можно с 20  по 25 число каждого месяца</h5>
   <div class="border" *ngIf=canAddDate>
     <button class="btn btn-md btn-outline-primary" (click)="openModel()" >
       <i id="myicon" class="fa-regular fa-plus"></i> Добавить показания </button>
@@ -37,12 +38,12 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let gageDate of state.appData.data.page.content; let i = index;">
+            <tr *ngFor="let gageDate of state.appData.data.page.content; let i = index;" style="color: #8e9a9d">
               <th scope="row"> {{i + 1 }} </th>
               <td><span class="badge" [ngClass]="[
               gageDate.typeGage === 'THERMAL_ENERGY' ? 'bg-success' : '',
               gageDate.typeGage ===  'ELECTRICAL_ENERGY' ? 'bg-primary' : '',
-              gageDate.typeGage === 'WATER' ? 'bg-info' : '']">{{gageDate.typeGage}} </span></td>
+              gageDate.typeGage === 'WATER' ? 'bg-info' : '']" style="color: #232a31">{{gageDate.typeGage}} </span></td>
               <td>{{gageDate.serialNumber}}</td>
               <td>{{gageDate.data}}</td>
               <td>{{gageDate.departureDate}}</td>

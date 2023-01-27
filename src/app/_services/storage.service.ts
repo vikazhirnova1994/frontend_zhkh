@@ -4,6 +4,7 @@ const TOKEN_KEY = 'AuthToken';
 const USERNAME_KEY = 'AuthUsername';
 const AUTHORITIES_KEY = 'AuthAuthorities';
 const CONTRACT_KEY = 'AuthContractNumber';
+const ADDRESS_KEY = 'AuthAddress';
 
 @Injectable({
   providedIn: 'root'
@@ -37,9 +38,19 @@ export class StorageService {
     window.sessionStorage.setItem(CONTRACT_KEY, contractNumber);
   }
 
+  public saveAddress(address: string) {
+    window.sessionStorage.removeItem(ADDRESS_KEY);
+    window.sessionStorage.setItem(ADDRESS_KEY, address);
+  }
+
   public getContractNumber(): string {
     // @ts-ignore
     return sessionStorage.getItem(CONTRACT_KEY);
+  }
+
+  public getAddress(): string {
+    // @ts-ignore
+    return sessionStorage.getItem(ADDRESS_KEY);
   }
 
   public saveAuthorities(roles: string[]) {

@@ -17,6 +17,7 @@ export class ProfileComponent implements OnInit {
       token: this.storageService.getToken(),
       username: this.storageService.getUsername(),
       contractNumber: this.storageService.getContractNumber(),
+      address: this.storageService.getAddress(),
       authorities:  this.storageService.getAuthorities()
     };
   }

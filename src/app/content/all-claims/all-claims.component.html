@@ -1,5 +1,5 @@
 <div class="container">
-  <h3 class="fw-bold">Список заявок</h3>
+  <h3 class="fw-bold" style=" text-align: center;">Список заявок</h3>
   <br>
   <div class="col-md-2">
     <button class="btn btn-md btn-outline-primary" (click)="exportExcel()"> Сгенерировать отчет</button>
@@ -47,7 +47,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let claim of state.appData.data.page.content; let i = index;">
+            <tr *ngFor="let claim of state.appData.data.page.content; let i = index;" style="color: #8e9a9d">
               <th scope="row"> {{i + 1 }} </th>
               <td>{{claim.contractNumber}}</td>
               <td>{{claim.address}}</td>
@@ -59,15 +59,15 @@
                 <span class="badge" [ngClass]="[
                 claim.status === 'ACTIVE' ? 'bg-success' : '',
                 claim.status ===  'IN_PROGRESS' ? 'bg-primary' : '',
-                claim.status === 'COMPLITED' ? 'bg-info' : '']">{{claim.status}}
+                claim.status === 'COMPLITED' ? 'bg-info' : '']" style="color: #232a31">{{claim.status}}
                 </span>
               </td>
-              <td>
+              <td style=" text-align: center;">
                 <button (click)="openContentUpdate(claim.id, claim.contractNumber, claim.address, claim.description,
                 claim.executorIdentificationNumber, claim.creationDate, claim.completionDate, claim.status)"
                         data-bs-toggle="modal" data-bs-target="#detailsModal"
                         class="btn btn-outline-primary text-white mx-2"
-                        *ngIf="claim.status == 'ACTIVE'">Изменить статус
+                        *ngIf="claim.status == 'ACTIVE'">Назначить исполнителя
                 </button>
                 <button (click)="openContentComplete(claim.id)" class="btn btn-outline-primary text-white mx-2"
                         *ngIf="claim.status != 'COMPLITED'">Закрыть заявку
@@ -101,7 +101,7 @@
 
 <ng-template #contentEdit let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title-update">Изменить статус заявки</h4>
+    <h4 class="modal-title" id="modal-basic-title-update">Назначить исполнителя</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"><span
       aria-hidden="true">&times;</span></button>
   </div>
@@ -110,35 +110,27 @@
       <div class="mb-3">
         <label for="contractNumberUpdate" class="form-label">Номер контракта</label>
         <input type="text" formControlName="contractNumber" class="form-control" id="contractNumberUpdate"
-               aria-describedby="serialNumberHelp" readonly>
+               aria-describedby="serialNumberHelp" readonly style="color:#8e9a9d;">
       </div>
       <div class="mb-3">
         <label for="addressUpdate" class="form-label">Адрес </label>
         <input type="text" formControlName="address" class="form-control" id="addressUpdate"
-               aria-describedby="serialNumberHelp" readonly>
+               aria-describedby="serialNumberHelp" readonly style="color:#8e9a9d;">
       </div>
       <div class="mb-3">
         <label for="descriptionUpdate" class="form-label">Описание заявки </label>
         <input type="text" formControlName="description" class="form-control" id="descriptionUpdate"
-               aria-describedby="serialNumberHelp" readonly>
+               aria-describedby="serialNumberHelp" readonly style="color:#8e9a9d;">
       </div>
       <div class="mb-3">
         <label for="creationDateUpdate" class="form-label">Дата создания заявки </label>
         <input type="text" formControlName="creationDate" class="form-control" id="creationDateUpdate"
-               aria-describedby="serialNumberHelp" readonly>
+               aria-describedby="serialNumberHelp" readonly style="color:#8e9a9d;">
       </div>
       <div class="mb-3">
-        <label for="executorIdentificationNumberUpdate" class="form-label">Исполнитель</label>
+        <label for="executorIdentificationNumberUpdate" class="form-label" style="color: rgba(75,255,255,0.6);">Исполнитель</label>
         <input type="text" formControlName="executorIdentificationNumber" class="form-control"
                id="executorIdentificationNumberUpdate" aria-describedby="serialNumberHelp">
-      </div>
-      <div class="mb-3">
-        <label for="statusUpdate" class="form-label"> Новый статус заявки</label>
-        <select formControlName="status" class="form-control" id="statusUpdate">
-          <option [ngValue]="null" disabled>Выберите статус заявки</option>
-          <option>ACTIVE</option>
-          <option>IN_PROGRESS</option>
-        </select>
       </div>
     </form>
   </div>

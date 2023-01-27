@@ -23,6 +23,7 @@ export class UserClaimsComponent implements OnInit {
   public currentPage$ = this.currentPageSubject.asObservable();
   public closeResult: string;
   public claimModel: any;
+  public userAddress: any;
 
   constructor(private storageService: StorageService,
               private claimService: ClaimService,
@@ -35,6 +36,7 @@ export class UserClaimsComponent implements OnInit {
     console.log("this.isLoggedIn", this.isLoggedIn);
 
     if (this.isLoggedIn) {
+      this.userAddress = this.storageService.getAddress();
       // @ts-ignore
       this.claimDateState$ = this.claimService.userClaimData$().pipe(
         map((response: ApiResponse<UserClaimPage>) => {

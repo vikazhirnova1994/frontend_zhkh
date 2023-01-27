@@ -17,6 +17,7 @@ export class UserGagesComponent implements OnInit {
   public userGageDataList: Array<UserGagesDataModal>;
   public userGageDataByIdList: Array<UserGagesDataModal>;
   public isLoggedIn = false;
+  public userAddress: any;
 
   constructor(private storageService: StorageService, private http: HttpClient) {
     this.userGageList = new Array<UserGagesModal>();
@@ -27,6 +28,7 @@ export class UserGagesComponent implements OnInit {
   ngOnInit(): void {
     this.isLoggedIn = this.storageService.isLoggedIn();
     if(this.isLoggedIn){
+      this.userAddress = this.storageService.getAddress();
       setTimeout(() => {
         this.onLoad();  }, 300);
       setTimeout(() => {

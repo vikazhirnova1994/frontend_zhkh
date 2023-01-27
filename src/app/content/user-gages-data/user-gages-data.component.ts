@@ -24,12 +24,12 @@ export class UserGagesDataComponent implements OnInit {
   public closeResult: string;
   public gageDataModel: any;
   public canAddDate: Boolean;
+  public userAddress: any;
 
   constructor(private storageService: StorageService,
               private http: HttpClient,
               private gagaDataService: GageDataService,
-              private modalService: NgbModal) {
-  }
+              private modalService: NgbModal) { }
 
   @ViewChild('content') addView!: ElementRef
 
@@ -44,6 +44,7 @@ export class UserGagesDataComponent implements OnInit {
       });
 
     if (this.isLoggedIn) {
+      this.userAddress = this.storageService.getAddress();
       // @ts-ignore
       this.userGageDateState$ = this.gagaDataService.userGageData$().pipe(
         map((response: ApiResponse<UserGagePage>) => {

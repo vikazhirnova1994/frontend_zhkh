@@ -1,5 +1,8 @@
 <div class="container">
-  <h3 class="fw-bold">Ваши переданные заявки</h3>
+  <div class="col">
+    <p class="h3 fw-bold" style=" text-align: center;"> Переданные заявки </p>
+  </div>
+  <h5 style="text-align: center; color: darkcyan">{{userAddress}}</h5>
   <br>
   <div class="border">
     <button class="btn btn-md btn-outline-primary" (click)="openModel()">
@@ -34,7 +37,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let claim of state.appData.data.page.content; let i = index;">
+            <tr *ngFor="let claim of state.appData.data.page.content; let i = index;" style="color: #8e9a9d">
               <th scope="row"> {{i + 1 }} </th>
               <td>{{claim.description}}</td>
               <td>{{claim.executorIdentificationNumber}}</td>
@@ -44,7 +47,7 @@
                 <span class="badge" [ngClass]="[
                 claim.status === 'ACTIVE' ? 'bg-success' : '',
                 claim.status ===  'IN_PROGRESS' ? 'bg-primary' : '',
-                claim.status === 'COMPLITED' ? 'bg-info' : '']">{{claim.status}}
+                claim.status === 'COMPLITED' ? 'bg-info' : '']" style="color: #232a31">{{claim.status}}
                 </span>
               </td>
             </tr>

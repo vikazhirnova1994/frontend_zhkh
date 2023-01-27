@@ -1,5 +1,5 @@
 <div class="container">
-  <h3 class="fw-bold">Список пользователей</h3>
+  <h3 class="fw-bold" style=" text-align: center;">Список пользователей</h3>
   <div class="border">
     <button class="btn btn-md btn-outline-primary" (click)="openContent()">
       <i id="myicon" class="fa-regular fa-plus"></i> Добавить
@@ -33,12 +33,12 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let user of state.appData.data.page.content; let i = index;">
+            <tr *ngFor="let user of state.appData.data.page.content; let i = index;" style="color: #8e9a9d">
               <th scope="row"> {{i + 1 }} </th>
               <td>{{user.username}}</td>
               <td>{{user.roleName}}</td>
               <td>{{user.contractNumber}}</td>
-              <td>
+              <td style=" text-align: center;">
                 <button (click)="openContentDetails(user.username, user.roleName, user.contractNumber)"
                         data-bs-toggle="modal" data-bs-target="#detailsModal"
                         class="btn btn-outline-primary text-white mx-2">Подробнее
@@ -130,15 +130,15 @@
       <div class="mb-3">
         <label for="usernameDetail" class="form-label">Имя пользователя</label>
         <input type="text" formControlName="username" class="form-control" id="usernameDetail"
-               aria-describedby="serialNumberHelp" readonly>
+               aria-describedby="serialNumberHelp" readonly style="color:#8e9a9d;">
       </div>
       <div class="mb-3">
         <label for="roleNameDetail" class="form-label">Роль</label>
-        <input type="text" formControlName="roleName" class="form-control" id="roleNameDetail" readonly>
+        <input type="text" formControlName="roleName" class="form-control" id="roleNameDetail" readonly style="color:#8e9a9d;">
       </div>
       <div class="mb-3">
         <label for="contractNumberDetail" class="form-label">Номер договра</label>
-        <input type="number" formControlName="contractNumber" class="form-control" id="contractNumberDetail" readonly>
+        <input type="number" formControlName="contractNumber" class="form-control" id="contractNumberDetail" readonly style="color:#8e9a9d;">
       </div>
     </form>
   </div>
@@ -156,27 +156,23 @@
   </div>
   <div class="modal-body">
     <form [formGroup]="userForm">
-
       <div class="mb-3">
-        <label for="usernameUpdate" class="form-label">Новое имя пользователя</label>
+        <label for="usernameUpdate" class="form-label" style="color: rgba(75,255,255,0.6);">Новое имя пользователя</label>
         <input type="text" formControlName="username" class="form-control" id="usernameUpdate"
-               aria-describedby="serialNumberHelp">
+               aria-describedby="serialNumberHelp" >
       </div>
-
       <div class="mb-3">
-        <label for="passwordUpdate" class="form-label">Новый пароль пользователя</label>
+        <label for="passwordUpdate" class="form-label" style="color: rgba(75,255,255,0.6);" >Новый пароль пользователя</label>
         <input type="text" formControlName="password" class="form-control" id="passwordUpdate"
                aria-describedby="serialNumberHelp">
       </div>
-
       <div class="mb-3">
         <label for="roleNameUpdate" class="form-label">Роль</label>
-        <input type="text" formControlName="roleName" class="form-control" id="roleNameUpdate" readonly>
+        <input type="text" formControlName="roleName" class="form-control" id="roleNameUpdate" readonly style="color:#8e9a9d;">
       </div>
-
       <div class="mb-3">
         <label for="contractNumberUpdate" class="form-label">Номер договора</label>
-        <input type="number" formControlName="contractNumber" class="form-control" id="contractNumberUpdate" readonly>
+        <input type="number" formControlName="contractNumber" class="form-control" id="contractNumberUpdate" readonly style="color:#8e9a9d;">
       </div>
     </form>
   </div>

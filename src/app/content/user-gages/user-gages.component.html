@@ -1,9 +1,10 @@
 <div class="container">
   <div class="col">
-    <p class="h3 fw-bold align-content-center"> Ваши ИПУ </p>
+    <p class="h3 fw-bold" style=" text-align: center;">Ваши ИПУ </p>
   </div>
+  <h5 style="text-align: center; color: darkcyan">{{userAddress}}</h5>
 </div>
-
+<br>
 <div class="container">
   <div class="card-group">
     <div class="card text-white bg-dark mb-3" *ngFor="let item of userGageList">
@@ -11,14 +12,14 @@
       <img *ngIf="item.typeGage.includes('WATER')" class="card-img-top" src="../../../assets/img/water.png" alt="Card image cap">
       <img *ngIf="item.typeGage.includes('THERMAL_ENERGY')" class="card-img-top" src="../../../assets/img/termal.png" alt="Card image cap">
       <div class="card-body">
-        <h5 class="card-title"><p class="fw-bold">N {{item.serialNumber}}</p></h5>
+        <h5 class="card-title"><p class="fw-bold" style="color: rgba(75,255,255,0.6);">N {{item.serialNumber}}</p></h5>
         <p class="card-text" *ngIf="item.typeGage.includes('ELECTRICAL_ENERGY')">ИПУ для измерения электричества</p>
         <p class="card-text" *ngIf="item.typeGage.includes('WATER')">ИПУ для измерения воды</p>
         <p class="card-text" *ngIf="item.typeGage.includes('THERMAL_ENERGY')">ИПУ для измерения тепла</p>
       </div>
       <div class="card-body">
         <li class="list-group-item" *ngFor="let itemData of userGageDataList">
-          <p class="card-text fw-bold" *ngIf="itemData.serialNumber == item.serialNumber">Последние показания</p>
+          <p class="card-text fw-bold" *ngIf="itemData.serialNumber == item.serialNumber" style="color:#8e9a9d">Последние показания</p>
           <p class="card-text" *ngIf="itemData.serialNumber == item.serialNumber"> Дата {{itemData.departureDate}} </p>
           <p class="card-text" *ngIf="itemData.serialNumber == item.serialNumber"> Значение {{itemData.data}}</p>
           <p></p>

@@ -1,6 +1,5 @@
-<p>all-contract works!</p>
 <div class="container">
-  <h3 class="fw-bold">Список договоров</h3>
+  <h3 class="fw-bold" style=" text-align: center;">Список договоров</h3>
   <div class="border">
     <button class="btn btn-md btn-outline-primary" (click)="openContent()"> <i id="myicon" class="fa-regular fa-plus"></i> Добавить </button>
   </div>
@@ -32,12 +31,12 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let contract of state.appData.data.page.content; let i = index;">
+            <tr *ngFor="let contract of state.appData.data.page.content; let i = index;" style="color: #8e9a9d">
               <th scope="row"> {{i + 1 }} </th>
               <td>{{contract.contractNumber}}</td>
               <td>{{contract.address}}</td>
               <td>{{contract.signedDate}}</td>
-            <td>
+            <td style=" text-align: center;">
                    <button (click)="openContentDelete(contract.id)" class="btn btn-outline-primary text-white mx-2">Удалить</button>
               </td>
             </tr>

@@ -1,5 +1,5 @@
 <div class="container">
-  <h3 class="fw-bold">Список показаний</h3>
+  <h3 class="fw-bold" style=" text-align: center;">Список показаний</h3>
   <br>
   <div class="col-md-2">
     <button  class="btn btn-md btn-outline-primary" (click)="exportExcel()" > Сгенерировать отчет </button>
@@ -41,7 +41,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let gageData of state.appData.data.page.content; let i = index;">
+          <tr *ngFor="let gageData of state.appData.data.page.content; let i = index;" style="color: #8e9a9d">
             <th scope="row"> {{i + 1 }} </th>
             <td>{{gageData.username}}</td>
             <td>{{gageData.contractNumber}}</td>
@@ -50,7 +50,7 @@
             <td><span class="badge" [ngClass]="[
               gageData.typeGage === 'THERMAL_ENERGY' ? 'bg-success' : '',
               gageData.typeGage ===  'ELECTRICAL_ENERGY' ? 'bg-primary' : '',
-              gageData.typeGage === 'WATER' ? 'bg-info' : '']">{{gageData.typeGage}} </span></td>
+              gageData.typeGage === 'WATER' ? 'bg-info' : '']" style="color: #232a31">{{gageData.typeGage}} </span></td>
             <td>{{gageData.data}}</td>
             <td>{{gageData.departureDate}}</td>
           </tr>

@@ -1,5 +1,5 @@
 <div class="container">
-  <h3 class="fw-bold">Список ИПУ</h3>
+  <h3 class="fw-bold" style=" text-align: center;">Список ИПУ</h3>
   <div class="border">
     <button class="btn btn-md btn-outline-primary" (click)="openContent()">
       <i id="myicon" class="fa-regular fa-plus"></i> Добавить
@@ -34,14 +34,14 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let gage of state.appData.data.page.content; let i = index;">
+            <tr *ngFor="let gage of state.appData.data.page.content; let i = index;" style="color: #8e9a9d">
               <th scope="row"> {{i + 1 }} </th>
               <td>{{gage.serialNumber}}</td>
               <td>{{gage.typeGage}}</td>
               <td>{{gage.manufacturer}}</td>
               <td>{{gage.installationDate}}</td>
               <td>{{gage.address}}</td>
-              <td>
+              <td style=" text-align: center;">
                 <button (click)="openContentDelete(gage.id)" class="btn btn-outline-primary text-white mx-2">Снять с
                   места установки
                 </button>
@@ -102,8 +102,8 @@
       <div class="form-group col-sm-12">
         <label for="installationDate">Дата установки</label>
         <div><input type="text" id="installationDate" name="installationDate" class="form-control"
-                    placeholder="yyyy-mm-dd"
-                    [(ngModel)]="installationDate" ngbDatepicker #d="ngbDatepicker" ngModel></div>
+                    placeholder="yyyy-mm-dd" [(ngModel)]="installationDate" ngbDatepicker #d="ngbDatepicker" ngModel>
+        </div>
       </div>
       <div class="input-group-append">
         <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
