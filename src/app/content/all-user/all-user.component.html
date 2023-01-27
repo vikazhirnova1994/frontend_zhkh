@@ -1,0 +1,206 @@
+<div class="container">
+  <h3 class="fw-bold">Список пользователей</h3>
+  <div class="border">
+    <button class="btn btn-md btn-outline-primary" (click)="openContent()">
+      <i id="myicon" class="fa-regular fa-plus"></i> Добавить
+    </button>
+  </div>
+  <br>
+</div>
+<br>
+
+<ng-container *ngIf="(userState$ | async) as state" [ngSwitch]="state.appState">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 mt-3">
+        <ng-container *ngSwitchCase="'APP_ERROR'"> {{ state.error | json }}</ng-container>
+        <ng-container *ngSwitchCase="'APP_LOADING'">
+          <div class="d-flex justify-content-center mt-4">
+            <div class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngSwitchCase="'APP_LOADED'">
+          <table class="table table-dark">
+            <thead>
+            <tr>
+              <th scope="col">N</th>
+              <th scope="col">Имя пользователя</th>
+              <th scope="col">Роль</th>
+              <th scope="col">Номер договора</th>
+              <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let user of state.appData.data.page.content; let i = index;">
+              <th scope="row"> {{i + 1 }} </th>
+              <td>{{user.username}}</td>
+              <td>{{user.roleName}}</td>
+              <td>{{user.contractNumber}}</td>
+              <td>
+                <button (click)="openContentDetails(user.username, user.roleName, user.contractNumber)"
+                        data-bs-toggle="modal" data-bs-target="#detailsModal"
+                        class="btn btn-outline-primary text-white mx-2">Подробнее
+                </button>
+                <button
+                  (click)="openContentDetailsForUpdate(user.id, user.username, user.roleName, user.contractNumber)"
+                  data-bs-toggle="modal" data-bs-target="#detailsModal" class="btn btn-outline-primary text-white mx-2">
+                  Изменить
+                </button>
+                <button (click)="openContentDelete(user.id)" class="btn btn-outline-primary text-white mx-2">Удалить
+                </button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-end">
+              <li class="page-item pointer" [ngClass]="0 == (currentPage$ | async) ? ' disabled' : ''">
+                <a class="page-link" aria-label="Previous" (click)="goToPreviousOrNextPage('backward')"> <span
+                  aria-hidden="true">&laquo; Previous</span> </a>
+              </li>
+              <li class="page-item pointer"
+                  *ngFor="let pageNumber of [].constructor(state.appData.data.page.totalPages); let i = index;"
+                  [ngClass]="i == (currentPage$ | async) ? ' active' : ''">
+                <a class="page-link" (click)="goToPage(i)"> {{ i + 1}}  </a></li>
+              <li class="page-item pointer"
+                  [ngClass]="state.appData.data.page.totalPages - 1 == (currentPage$ | async) ? ' disabled' : ''">
+                <a class="page-link" aria-label="Next" (click)="goToPreviousOrNextPage('forward')"> <span
+                  aria-hidden="true">Next &raquo;</span> </a>
+              </li>
+            </ul>
+          </nav>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Добавить нового пользователя</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #f="ngForm" novalidate>
+      <div class="form-group">
+        <label for="username">Имя пользователя</label>
+        <div class="input-group"><input type="text" id="username" class="form-control" name="username" ngModel></div>
+      </div>
+      <div class="form-group">
+        <label for="password">Пароль</label>
+        <div class="input-group"><input type="text" id="password" class="form-control" name="password" ngModel></div>
+      </div>
+      <div class="form-group">
+        <label for="role">Роль</label>
+        <select class="form-control" name="role" id="role" ngModel>
+          <option [ngValue]="null" disabled>Выберите роль</option>
+          <option *ngFor="let role of roles">{{role}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="contractNumber">Номер договора</label>
+        <select class="form-control" name="contractNumber" id="contractNumber" ngModel>
+          <option [ngValue]="null" disabled>Выберите номер договора</option>
+          <option *ngFor="let contractNumber of contractNumbers">{{contractNumber}}</option>
+        </select>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <div>
+      <button data-dismiss="model" class="btn btn-outline-primary" (click)="onSubmit(f)">Сохранить</button>
+    </div>
+    <button type="button" class="btn btn btn-dark" (click)="modal.close('Save click')">Закрыть</button>
+  </div>
+</ng-template>
+
+<ng-template #contentDetails let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title-details">Детальная информация о пользователе</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="userForm">
+      <div class="mb-3">
+        <label for="usernameDetail" class="form-label">Имя пользователя</label>
+        <input type="text" formControlName="username" class="form-control" id="usernameDetail"
+               aria-describedby="serialNumberHelp" readonly>
+      </div>
+      <div class="mb-3">
+        <label for="roleNameDetail" class="form-label">Роль</label>
+        <input type="text" formControlName="roleName" class="form-control" id="roleNameDetail" readonly>
+      </div>
+      <div class="mb-3">
+        <label for="contractNumberDetail" class="form-label">Номер договра</label>
+        <input type="number" formControlName="contractNumber" class="form-control" id="contractNumberDetail" readonly>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn btn-dark" (click)="modal.close('Save click')">Закрыть</button>
+  </div>
+</ng-template>
+
+
+<ng-template #contentEdit let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title-update">Изменить информацию о пользователе</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"><span
+      aria-hidden="true">&times;</span></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="userForm">
+
+      <div class="mb-3">
+        <label for="usernameUpdate" class="form-label">Новое имя пользователя</label>
+        <input type="text" formControlName="username" class="form-control" id="usernameUpdate"
+               aria-describedby="serialNumberHelp">
+      </div>
+
+      <div class="mb-3">
+        <label for="passwordUpdate" class="form-label">Новый пароль пользователя</label>
+        <input type="text" formControlName="password" class="form-control" id="passwordUpdate"
+               aria-describedby="serialNumberHelp">
+      </div>
+
+      <div class="mb-3">
+        <label for="roleNameUpdate" class="form-label">Роль</label>
+        <input type="text" formControlName="roleName" class="form-control" id="roleNameUpdate" readonly>
+      </div>
+
+      <div class="mb-3">
+        <label for="contractNumberUpdate" class="form-label">Номер договора</label>
+        <input type="number" formControlName="contractNumber" class="form-control" id="contractNumberUpdate" readonly>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <div>
+      <button data-dismiss="model" class="btn btn-outline-primary" (click)="onSaveEdit()">Сохранить</button>
+    </div>
+    <button type="button" class="btn btn btn-dark" (click)="modal.close('Save click')">Закрыть</button>
+  </div>
+</ng-template>
+
+<ng-template #contentDelete let-modal>
+  <div class="modal-header">
+    <h6 class="modal-title">Подтверждение удаления</h6>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"><span
+      aria-hidden="true">&times;</span></button>
+  </div>
+  <div class="modal-body">
+    <h6>Вы уверены, что хотите удалить запись?</h6>
+    <div class="border text-center">
+      <button data-dismiss="modal" class="btn btn-danger" (click)="deleteFlat()">Да!</button>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-dark" (click)="modal.close('Save click')">Отменить</button>
+  </div>
+</ng-template>

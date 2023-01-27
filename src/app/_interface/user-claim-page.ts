@@ -1,7 +1,7 @@
-import {UserData} from "./user-data";
+import {UserClaimData} from "./user-claim-data";
 
-export interface UserPage {
-  "content": UserData[],
+export interface UserClaimPage {
+  "content": UserClaimData[],
   "pageable": {
     "sort": {
       "empty": boolean,

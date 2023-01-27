@@ -29,6 +29,8 @@
     "ag-grid-community": "^28.2.1",
     "angular-material": "^1.2.5",
     "bootstrap": "^5.2.0",
+    "exceljs": "^1.12.0",
+    "file-saver": "^2.0.5",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

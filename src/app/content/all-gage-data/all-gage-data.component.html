@@ -1,0 +1,80 @@
+<div class="container">
+  <h3 class="fw-bold">Список показаний</h3>
+  <br>
+  <div class="col-md-2">
+    <button  class="btn btn-md btn-outline-primary" (click)="exportExcel()" > Сгенерировать отчет </button>
+  </div>
+
+  <br>
+  <form #searchForm="ngForm" class="d-flex" role="search" (ngSubmit)="goToPage(searchForm.value.contractNumber, searchForm.value.serialNumber)">
+    <input class="form-control me-2" type="text" name="contractNumber" ngModel placeholder="Номер договора" aria-label="Поиск">
+    <input class="form-control me-2" type="text" name="serialNumber" ngModel placeholder="Серийный номер ИПУ" aria-label="Поиск">
+    <button class="btn btn-success" type="submit">Поиск</button>
+  </form>
+</div>
+<br>
+
+<ng-container *ngIf="(gageDateState$ | async) as state" [ngSwitch]="state.appState">
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 mt-3">
+      <ng-container *ngSwitchCase="'APP_ERROR'"> {{ state.error | json }}</ng-container>
+      <ng-container *ngSwitchCase="'APP_LOADING'">
+        <div class="d-flex justify-content-center mt-4">
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchCase="'APP_LOADED'">
+        <table class="table table-dark">
+          <thead>
+          <tr>
+            <th scope="col">N</th>
+            <th scope="col">Пользователь</th>
+            <th scope="col">Номер договра</th>
+            <th scope="col">Адрес</th>
+            <th scope="col">Номер ИПУ</th>
+            <th scope="col">Тип ИПУ</th>
+            <th scope="col">Данные</th>
+            <th scope="col">Дата отправки</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let gageData of state.appData.data.page.content; let i = index;">
+            <th scope="row"> {{i + 1 }} </th>
+            <td>{{gageData.username}}</td>
+            <td>{{gageData.contractNumber}}</td>
+            <td>{{gageData.address}}</td>
+            <td>{{gageData.serialNumber}}</td>
+            <td><span class="badge" [ngClass]="[
+              gageData.typeGage === 'THERMAL_ENERGY' ? 'bg-success' : '',
+              gageData.typeGage ===  'ELECTRICAL_ENERGY' ? 'bg-primary' : '',
+              gageData.typeGage === 'WATER' ? 'bg-info' : '']">{{gageData.typeGage}} </span></td>
+            <td>{{gageData.data}}</td>
+            <td>{{gageData.departureDate}}</td>
+          </tr>
+          </tbody>
+        </table>
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-end">
+            <li class="page-item pointer" [ngClass]="0 == (currentPage$ | async) ? ' disabled' : ''">
+              <a class="page-link" aria-label="Previous" (click)="goToPreviousOrNextPage('backward')"> <span
+                aria-hidden="true">&laquo; Previous</span> </a>
+            </li>
+            <li class="page-item pointer"
+                *ngFor="let pageNumber of [].constructor(state.appData.data.page.totalPages); let i = index;"
+                [ngClass]="i == (currentPage$ | async) ? ' active' : ''">
+              <a class="page-link" (click)="goToPage(i)"> {{ i + 1}}  </a></li>
+            <li class="page-item pointer"
+                [ngClass]="state.appData.data.page.totalPages - 1 == (currentPage$ | async) ? ' disabled' : ''">
+              <a class="page-link" aria-label="Next" (click)="goToPreviousOrNextPage('forward')"> <span
+                aria-hidden="true">Next &raquo;</span> </a>
+            </li>
+          </ul>
+        </nav>
+      </ng-container>
+    </div>
+  </div>
+</div>
+</ng-container>

@@ -13,7 +13,7 @@
   </form>
 </div>
 <br>
-<ng-container *ngIf="(gageDateSate$ | async) as state" [ngSwitch]="state.appState">
+<ng-container *ngIf="(userGageDateState$ | async) as state" [ngSwitch]="state.appState">
   <div class="container">
     <div class="row">
       <div class="col-md-12 mt-3">

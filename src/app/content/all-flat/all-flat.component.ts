@@ -134,7 +134,6 @@ export class AllFlatComponent implements OnInit {
   openContentDelete(id: any) {
     this.deleteId = id;
     console.log("!!!!!!!!!!!!!!!", this.deleteId);
-
     this.modalService.open(this.deleteView, {centered: true, backdrop: 'static', size: 'lg'});
   }
 
@@ -151,6 +150,7 @@ export class AllFlatComponent implements OnInit {
 
   onSaveEdit() {
     console.log("this.flatForm.value.id: ", this.flatForm.value.id);
+    console.log("this.flatForm.value.id: ", this.flatForm.value);
     this.flatService.putFlat(this.flatForm.value, this.flatForm.value.id)
       .subscribe((result) => {
         this.ngOnInit(); //reload the table

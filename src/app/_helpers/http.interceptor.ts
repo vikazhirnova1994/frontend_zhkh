@@ -4,8 +4,8 @@ import { HTTP_INTERCEPTORS, HttpErrorResponse, HttpEvent,
 import {catchError, Observable, switchMap, throwError} from 'rxjs';
 import {StorageService} from "../_services/storage.service";
 import {AuthService} from "../_services/auth.service";
-import {EventData} from "../_shared/event.class";
-import {EventBusService} from "../_shared/event-bus.service";
+import {EventData} from "./event.class";
+import {EventBusService} from "./event-bus.service";
 
 const TOKEN_HEADER_KEY = 'Authorization'
 

@@ -1,0 +1,168 @@
+<div class="container">
+  <h3 class="fw-bold">Список заявок</h3>
+  <br>
+  <div class="col-md-2">
+    <button class="btn btn-md btn-outline-primary" (click)="exportExcel()"> Сгенерировать отчет</button>
+  </div>
+  <br>
+  <form #searchForm="ngForm" class="d-flex" role="search" (ngSubmit)="goToPage(searchForm.value.status)">
+    <label class="form-label"> Статус заявки</label>
+    <select class="form-control me-2" name="status" ngModel aria-label="Поиск" placeholder="Статус заявки">
+      <option [ngValue]="null" disabled>Выберите статус заявки</option>
+      <option>ACTIVE</option>
+      <option>IN_PROGRESS</option>
+      <option>COMPLITED</option>
+      <option></option>
+    </select>
+    <button class="btn btn-success" type="submit">Поиск</button>
+  </form>
+</div>
+<br>
+
+<ng-container *ngIf="(userClaimDateState$ | async) as state" [ngSwitch]="state.appState">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 mt-3">
+        <ng-container *ngSwitchCase="'APP_ERROR'"> {{ state.error | json }}</ng-container>
+        <ng-container *ngSwitchCase="'APP_LOADING'">
+          <div class="d-flex justify-content-center mt-4">
+            <div class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngSwitchCase="'APP_LOADED'">
+          <table class="table table-dark">
+            <thead>
+            <tr>
+              <th scope="col">N</th>
+              <th scope="col">Номер контракта</th>
+              <th scope="col">Адрес</th>
+              <th scope="col">Описание</th>
+              <th scope="col">Исполнитель</th>
+              <th scope="col">Дата создания</th>
+              <th scope="col">Дата завершения</th>
+              <th scope="col">Статус</th>
+              <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let claim of state.appData.data.page.content; let i = index;">
+              <th scope="row"> {{i + 1 }} </th>
+              <td>{{claim.contractNumber}}</td>
+              <td>{{claim.address}}</td>
+              <td>{{claim.description}}</td>
+              <td>{{claim.executorIdentificationNumber}}</td>
+              <td>{{claim.creationDate}}</td>
+              <td>{{claim.completionDate}}</td>
+              <td>
+                <span class="badge" [ngClass]="[
+                claim.status === 'ACTIVE' ? 'bg-success' : '',
+                claim.status ===  'IN_PROGRESS' ? 'bg-primary' : '',
+                claim.status === 'COMPLITED' ? 'bg-info' : '']">{{claim.status}}
+                </span>
+              </td>
+              <td>
+                <button (click)="openContentUpdate(claim.id, claim.contractNumber, claim.address, claim.description,
+                claim.executorIdentificationNumber, claim.creationDate, claim.completionDate, claim.status)"
+                        data-bs-toggle="modal" data-bs-target="#detailsModal"
+                        class="btn btn-outline-primary text-white mx-2"
+                        *ngIf="claim.status == 'ACTIVE'">Изменить статус
+                </button>
+                <button (click)="openContentComplete(claim.id)" class="btn btn-outline-primary text-white mx-2"
+                        *ngIf="claim.status != 'COMPLITED'">Закрыть заявку
+                </button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-end">
+              <li class="page-item pointer" [ngClass]="0 == (currentPage$ | async) ? ' disabled' : ''">
+                <a class="page-link" aria-label="Previous" (click)="goToPreviousOrNextPage('backward')"> <span
+                  aria-hidden="true">&laquo; Previous</span> </a>
+              </li>
+              <li class="page-item pointer"
+                  *ngFor="let pageNumber of [].constructor(state.appData.data.page.totalPages); let i = index;"
+                  [ngClass]="i == (currentPage$ | async) ? ' active' : ''">
+                <a class="page-link" (click)="goToPage(i)"> {{ i + 1}}  </a></li>
+              <li class="page-item pointer"
+                  [ngClass]="state.appData.data.page.totalPages - 1 == (currentPage$ | async) ? ' disabled' : ''">
+                <a class="page-link" aria-label="Next" (click)="goToPreviousOrNextPage('forward')"> <span
+                  aria-hidden="true">Next &raquo;</span> </a>
+              </li>
+            </ul>
+          </nav>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #contentEdit let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title-update">Изменить статус заявки</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"><span
+      aria-hidden="true">&times;</span></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="claimForm">
+      <div class="mb-3">
+        <label for="contractNumberUpdate" class="form-label">Номер контракта</label>
+        <input type="text" formControlName="contractNumber" class="form-control" id="contractNumberUpdate"
+               aria-describedby="serialNumberHelp" readonly>
+      </div>
+      <div class="mb-3">
+        <label for="addressUpdate" class="form-label">Адрес </label>
+        <input type="text" formControlName="address" class="form-control" id="addressUpdate"
+               aria-describedby="serialNumberHelp" readonly>
+      </div>
+      <div class="mb-3">
+        <label for="descriptionUpdate" class="form-label">Описание заявки </label>
+        <input type="text" formControlName="description" class="form-control" id="descriptionUpdate"
+               aria-describedby="serialNumberHelp" readonly>
+      </div>
+      <div class="mb-3">
+        <label for="creationDateUpdate" class="form-label">Дата создания заявки </label>
+        <input type="text" formControlName="creationDate" class="form-control" id="creationDateUpdate"
+               aria-describedby="serialNumberHelp" readonly>
+      </div>
+      <div class="mb-3">
+        <label for="executorIdentificationNumberUpdate" class="form-label">Исполнитель</label>
+        <input type="text" formControlName="executorIdentificationNumber" class="form-control"
+               id="executorIdentificationNumberUpdate" aria-describedby="serialNumberHelp">
+      </div>
+      <div class="mb-3">
+        <label for="statusUpdate" class="form-label"> Новый статус заявки</label>
+        <select formControlName="status" class="form-control" id="statusUpdate">
+          <option [ngValue]="null" disabled>Выберите статус заявки</option>
+          <option>ACTIVE</option>
+          <option>IN_PROGRESS</option>
+        </select>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <div>
+      <button data-dismiss="model" class="btn btn-outline-primary" (click)="onSaveEdit()">Сохранить</button>
+    </div>
+    <button type="button" class="btn btn btn-dark" (click)="modal.close('Save click')">Закрыть</button>
+  </div>
+</ng-template>
+
+<ng-template #contentComplete let-modal>
+  <div class="modal-header">
+    <h6 class="modal-title">Подтверждение закрытия заявки</h6>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"><span
+      aria-hidden="true">&times;</span></button>
+  </div>
+  <div class="modal-body">
+    <h6>Вы уверены, что хотите закрыть заявку?</h6>
+    <div class="border text-center">
+      <button data-dismiss="modal" class="btn btn-danger" (click)="completeClaim()">Да!</button>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-dark" (click)="modal.close('Save click')">Отменить</button>
+  </div>
+</ng-template>

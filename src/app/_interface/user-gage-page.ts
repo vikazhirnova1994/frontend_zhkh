@@ -1,7 +1,7 @@
-import {UserData} from "./user-data";
+import {UserGageData} from "./user-gage-data";
 
-export interface UserPage {
-  "content": UserData[],
+export interface UserGagePage {
+  "content": UserGageData[],
   "pageable": {
     "sort": {
       "empty": boolean,

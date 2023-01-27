@@ -3,7 +3,7 @@ import {StorageService} from "../../_services/storage.service";
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {BehaviorSubject, catchError, Observable, of, startWith} from "rxjs";
 import {ApiResponse} from "../../_interface/api-response";
-import {UserPage} from "../../_interface/user-page";
+import {UserGagePage} from "../../_interface/user-gage-page";
 import {GageDataService} from "../../_services/gage.data.service";
 import {map} from "rxjs/operators";
 import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
@@ -16,9 +16,9 @@ import {FormControl, FormGroup, NgForm} from "@angular/forms";
 })
 export class UserGagesDataComponent implements OnInit {
 
-  public gageDateSate$ = Observable<{ appState: string, appData?: ApiResponse<UserPage>, error?: HttpErrorResponse }>;
+  public userGageDateState$ = Observable<{ appState: string, appData?: ApiResponse<UserGagePage>, error?: HttpErrorResponse }>;
   private isLoggedIn = false;
-  public responseSubject = new BehaviorSubject<ApiResponse<UserPage>>(null);
+  public responseSubject = new BehaviorSubject<ApiResponse<UserGagePage>>(null);
   public currentPageSubject = new BehaviorSubject<number>(0);
   public currentPage$ = this.currentPageSubject.asObservable();
   public closeResult: string;
@@ -45,8 +45,8 @@ export class UserGagesDataComponent implements OnInit {
 
     if (this.isLoggedIn) {
       // @ts-ignore
-      this.gageDateSate$ = this.gagaDataService.gageData$().pipe(
-        map((response: ApiResponse<UserPage>) => {
+      this.userGageDateState$ = this.gagaDataService.userGageData$().pipe(
+        map((response: ApiResponse<UserGagePage>) => {
           this.responseSubject.next(response);
           this.currentPageSubject.next(response.data.page.number);
           console.log("gageDateSate$ result: ", response);
@@ -78,8 +78,8 @@ export class UserGagesDataComponent implements OnInit {
 
   goToPage(serialNumber?: string, pageNumber: number = 0): void {
     // @ts-ignore
-    this.gageDateSate$ = this.gagaDataService.gageData$(serialNumber, pageNumber).pipe(
-      map((response: ApiResponse<UserPage>) => {
+    this.userGageDateState$ = this.gagaDataService.userGageData$(serialNumber, pageNumber).pipe(
+      map((response: ApiResponse<UserGagePage>) => {
         this.responseSubject.next(response);
         this.currentPageSubject.next(pageNumber);
         console.log("gageDateSate$: ", response);

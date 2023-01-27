@@ -1,14 +1,14 @@
+<p>all-contract works!</p>
 <div class="container">
-  <h3 class="fw-bold">Список ИПУ</h3>
+  <h3 class="fw-bold">Список договоров</h3>
   <div class="border">
-    <button class="btn btn-md btn-outline-primary" (click)="openContent()">
-      <i id="myicon" class="fa-regular fa-plus"></i> Добавить
-    </button>
+    <button class="btn btn-md btn-outline-primary" (click)="openContent()"> <i id="myicon" class="fa-regular fa-plus"></i> Добавить </button>
   </div>
   <br>
 </div>
 <br>
-<ng-container *ngIf="(gageState$ | async) as state" [ngSwitch]="state.appState">
+
+<ng-container *ngIf="(contractState$ | async) as state" [ngSwitch]="state.appState">
   <div class="container">
     <div class="row">
       <div class="col-md-12 mt-3">
@@ -25,26 +25,20 @@
             <thead>
             <tr>
               <th scope="col">N</th>
-              <th scope="col">Серийный номер</th>
-              <th scope="col">Тип ИПУ</th>
-              <th scope="col">Произодитель</th>
-              <th scope="col">Дата установки</th>
-              <th scope="col">Место установки</th>
+              <th scope="col">Номер договора</th>
+              <th scope="col">Адрес</th>
+              <th scope="col">Дата подписания</th>
               <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let gage of state.appData.data.page.content; let i = index;">
+            <tr *ngFor="let contract of state.appData.data.page.content; let i = index;">
               <th scope="row"> {{i + 1 }} </th>
-              <td>{{gage.serialNumber}}</td>
-              <td>{{gage.typeGage}}</td>
-              <td>{{gage.manufacturer}}</td>
-              <td>{{gage.installationDate}}</td>
-              <td>{{gage.address}}</td>
-              <td>
-                <button (click)="openContentDelete(gage.id)" class="btn btn-outline-primary text-white mx-2">Снять с
-                  места установки
-                </button>
+              <td>{{contract.contractNumber}}</td>
+              <td>{{contract.address}}</td>
+              <td>{{contract.signedDate}}</td>
+            <td>
+                   <button (click)="openContentDelete(contract.id)" class="btn btn-outline-primary text-white mx-2">Удалить</button>
               </td>
             </tr>
             </tbody>
@@ -72,9 +66,10 @@
   </div>
 </ng-container>
 
+
 <ng-template #content let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Добавить новый ИПУ</h4>
+    <h4 class="modal-title" id="modal-basic-title">Добавить новый договор</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -82,49 +77,35 @@
   <div class="modal-body">
     <form #f="ngForm" novalidate>
       <div class="form-group">
-        <label for="serialNumber">Серийный номер</label>
-        <div class="input-group"><input type="text" id="serialNumber" class="form-control" name="serialNumber" ngModel>
-        </div>
+        <label for="contractNumber">Номер договора</label>
+        <div class="input-group"> <input type="text" id="contractNumber" class="form-control" name="contractNumber" ngModel> </div>
       </div>
       <div class="form-group">
-        <label for="typeGage">Тип ИПУ</label>
-        <select class="form-control" name="typeGage" id="typeGage" ngModel>
-          <option [ngValue]="null" disabled>Выберите тип датчика</option>
-          <option *ngFor="let typeGage of typeGages" [ngValue]="typeGage.name">{{typeGage.name}}</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="manufacturer">Произодитель</label>
-        <div class="input-group">
-          <div><input type="text" id="manufacturer" name="manufacturer" class="form-control" ngModel></div>
-        </div>
-      </div>
-      <div class="form-group col-sm-12">
-        <label for="installationDate">Дата установки</label>
-        <div><input type="text" id="installationDate" name="installationDate" class="form-control"
-                    placeholder="yyyy-mm-dd"
-                    [(ngModel)]="installationDate" ngbDatepicker #d="ngbDatepicker" ngModel></div>
-      </div>
-      <div class="input-group-append">
-        <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
-          <i class="fa fa-calendar"></i>
-        </button>
-      </div>
-      <div class="form-group">
-        <label for="address">Место установки</label>
+        <label for="address">Адрес</label>
         <select class="form-control" name="address" id="address" ngModel>
           <option [ngValue]="null" disabled>Выберите место установки ИПУ</option>
           <option *ngFor="let gageAddress of gagesAddress"
                   [ngValue]="gageAddress.address">{{gageAddress.address}}</option>
         </select>
       </div>
+
+      <div class="form-group col-sm-12">
+        <label for="signedDate">Дата подписания</label>
+        <div><input type="text" id="signedDate" name="signedDate" class="form-control"
+                    placeholder="yyyy-mm-dd"
+                    [(ngModel)]="signedDate" ngbDatepicker #d="ngbDatepicker" ngModel></div>
+      </div>
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+          <i class="fa fa-calendar"></i>
+        </button>
+      </div>
+
     </form>
   </div>
   <div class="modal-footer">
-    <div>
-      <button data-dismiss="model" class="btn btn-outline-primary" (click)="onSubmit(f)">Сохранить</button>
-    </div>
-    <button type="button" class="btn btn-dark" (click)="modal.close('Save click')">Закрыть</button>
+    <div> <button data-dismiss="model" class="btn btn-outline-primary" (click)="onSubmit(f)" >Сохранить</button> </div>
+    <button type="button" class="btn btn btn-dark" (click)="modal.close('Save click')">Закрыть</button>
   </div>
 </ng-template>
 
@@ -135,9 +116,9 @@
       aria-hidden="true">&times;</span></button>
   </div>
   <div class="modal-body">
-    <h6>Вы уверены, снять ИПУ с места установки?</h6>
+    <h6>Вы уверены, что хотите удалить договор?</h6>
     <div class="border text-center">
-      <button data-dismiss="modal" class="btn btn-danger" (click)="deleteGage()">Да!</button>
+      <button data-dismiss="modal" class="btn btn-danger" (click)="deleteContract()">Да!</button>
     </div>
   </div>
   <div class="modal-footer">

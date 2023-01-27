@@ -1,7 +1,7 @@
-import {UserData} from "./user-data";
+import {ContractData} from "./contract-data";
 
-export interface UserPage {
-  "content": UserData[],
+export interface ContractPage {
+  "content": ContractData[],
   "pageable": {
     "sort": {
       "empty": boolean,

@@ -17,16 +17,22 @@ export class SideNavComponent implements OnInit {
 
   userList = [
     {number: '1', route: 'profile', name: 'Главная', icon: 'fa-solid fa-house', role: 'user'},
-    {number: '2', route: 'user-gages', name: 'Мои Приборы', icon: 'fa-solid fa-gauge-high', role: 'user'},
-    {number: '3', route: 'user-gages-data', name: 'Мои Показания', icon: 'fas fa-pen', role: 'user'},
+    {number: '2', route: 'user-gages', name: 'Мои Приборы', icon: 'fa-sharp fa-solid fa-gauge-simple', role: 'user'},
+    {number: '3', route: 'user-gages-data', name: 'Мои Показания', icon: 'fa-solid fa-plug-circle-plus', role: 'user'},
+    {number: '4', route: 'user-claims', name: 'Мои Заявки', icon: 'fa-solid fa-screwdriver-wrench', role: 'user'},
   ];
-
   adminList = [
     {number: '1', route: 'profile', name: 'Главная', icon: 'fa-solid fa-house', role: 'admin'},
-    {number: '3', route: 'all-flat', name: 'Квартиры', icon: 'fa-solid fa-house', role: 'admin'},
-    {number: '5', route: 'all-gage', name: 'Приборы', icon: 'fa-solid fa-gear', role: 'admin'},
+    {number: '2', route: 'all-flat', name: 'Квартиры', icon: 'fa-solid fa-hotel', role: 'admin'},
+    {number: '2', route: 'all-contract', name: 'Договоры', icon: 'fa-solid fa-file-contract', role: 'admin'},
+    {number: '3', route: 'all-gage', name: 'Приборы', icon: 'fa-sharp fa-solid fa-gauge-simple', role: 'admin'},
+    {number: '3', route: 'all-user', name: 'Пользователи', icon: 'fa-solid fa-user', role: 'admin'}
   ];
-
+  dispatcherList = [
+    {number: '1', route: 'profile', name: 'Главная', icon: 'fa-solid fa-house', role: 'dispatcher'},
+    {number: '2', route: 'all-gage-data', name: 'Показания', icon: 'fa-sharp fa-solid fa-gauge-simple', role: 'dispatcher'},
+    {number: '3', route: 'all-claims', name: 'Заявки', icon: 'fa-solid fa-screwdriver-wrench', role: 'dispatcher'},
+  ];
   constructor(private storageService: StorageService) {
   }
 
@@ -34,21 +40,20 @@ export class SideNavComponent implements OnInit {
     if (this.storageService.getToken()) {
       this.isLoggedIn = this.storageService.isLoggedIn();
       switch (this.storageService.getAuthorities()) {
-        case '["USER"]': {
+        case '["ROLE_USER"]': {
           this.role = "user"; break;
         }
-          case '["ADMIN"]': {
+          case '["ROLE_ADMIN"]': {
           this.role = "admin"; break;
         }
-        case '["DISPATCHER"]': {
+        case '["ROLE_DISPATCHER"]': {
           this.role = "dispatcher"; break;
         }
         default: {
           this.role = ""; break;
         }
       }
-
-      if (this.storageService.getAuthorities() === '["USER"]') {
+      if (this.storageService.getAuthorities() === '["ROLE_USER"]') {
         this.role = "user"
       }
     }
