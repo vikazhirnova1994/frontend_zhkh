@@ -7,8 +7,7 @@ import {StorageService} from "../../_services/storage.service";
 import {ClaimService} from "../../_services/claim.service";
 import {NgbDate, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {map} from "rxjs/operators";
-import {FormBuilder, FormGroup, FormGroupDirective, NgForm} from "@angular/forms";
-import {ExcelBorder} from "ag-grid-community";
+import {FormBuilder, FormGroup} from "@angular/forms";
 import {ExcelService} from "../../_services/excel.service";
 
 @Component({

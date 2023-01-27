@@ -1,14 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {AuthService} from '../../../_services/auth.service';
+import { Component, OnInit } from '@angular/core';
 import {FormGroup, Validators} from "@angular/forms";
+import {AuthService} from "../../../_services/auth.service";
 import {FormControlModel} from "../form-control/form.model";
 
 @Component({
-  selector: 'app-signup',
-  templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css']
+  selector: 'app-reset-password',
+  templateUrl: './reset-password.component.html',
+  styleUrls: ['./reset-password.component.css']
 })
-export class SignupComponent implements OnInit {
+export class ResetPasswordComponent implements OnInit {
 
   public form: FormGroup;
   public isSuccessful = false;
@@ -58,7 +58,6 @@ export class SignupComponent implements OnInit {
       ])
     });
   }
-
   public getControl(): Array<FormControlModel> {
     return Object.values(this.form.controls) as Array<FormControlModel>;
   }
@@ -66,7 +65,7 @@ export class SignupComponent implements OnInit {
   onSubmit() {
     console.log(this.form.value)
     const {username, contractNumber, password} = this.form.value;
-    this.authService.register(username, contractNumber, password).subscribe({
+    this.authService.resetPassword(username, contractNumber, password).subscribe({
       next: data => {
         console.log(data);
         this.isSuccessful = true;

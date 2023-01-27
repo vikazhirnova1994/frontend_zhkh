@@ -4,7 +4,6 @@
   <div class="col-md-2">
     <button  class="btn btn-md btn-outline-primary" (click)="exportExcel()" > Сгенерировать отчет </button>
   </div>
-
   <br>
   <form #searchForm="ngForm" class="d-flex" role="search" (ngSubmit)="goToPage(searchForm.value.contractNumber, searchForm.value.serialNumber)">
     <input class="form-control me-2" type="text" name="contractNumber" ngModel placeholder="Номер договора" aria-label="Поиск">
@@ -13,7 +12,6 @@
   </form>
 </div>
 <br>
-
 <ng-container *ngIf="(gageDateState$ | async) as state" [ngSwitch]="state.appState">
 <div class="container">
   <div class="row">

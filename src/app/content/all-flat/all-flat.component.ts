@@ -7,7 +7,7 @@ import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {map} from "rxjs/operators";
 import {FlatPage} from "../../_interface/flat-page";
 import {FlatService} from "../../_services/flat.service";
-import {FormBuilder, FormControl, FormGroup, NgForm} from "@angular/forms";
+import {FormBuilder, FormGroup, NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-all-flat',

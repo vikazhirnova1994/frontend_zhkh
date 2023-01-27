@@ -25,6 +25,10 @@ export class AuthService {
     return this.http.post<JwtResponse>(AUTH_API + 'signup', {username, contractNumber, password, },  httpOptions );
   }
 
+  resetPassword(username: string, contractNumber: string, password: string): Observable<JwtResponse> {
+    return this.http.post<JwtResponse>(AUTH_API + 'reset-password', {username, contractNumber, password, },  httpOptions );
+  }
+
   logout(): Observable<any> {
     return this.http.post(AUTH_API + 'signout', {}, httpOptions);
   }

@@ -8,9 +8,11 @@
             <app-form-control [control]="control" *ngFor="let control of getControl()"></app-form-control>
             <button type="submit" *ngIf="form.valid" class="form-btn">Авторизоваться</button>
           </form>
-          <div *ngIf="isLoginFailed" class="alert alert-danger" role="alert"> Login
-            failed: {{ errorMessage }}   </div>
-          <a style="color: white" routerLink="/sign-up">Новый пользователь? <p>Переходите на регитрацию</p></a>
+          <div *ngIf="isLoginFailed" class="alert alert-danger" role="alert"> Ошибка авторизации: {{ errorMessage }}
+          </div>
+          <a style="color: white" routerLink="/sign-up"  *ngIf="!isLoginFailed" >Новый пользователь? <p>Переходите на региcтрацию</p></a>
+          <a style="color: white" routerLink="/reset-password"  *ngIf="isLoginFailed" >Забыли пароль? <p>Переходите по ссылке для сбороса пароля</p></a>
+
         </div>
         <div class="alert alert-success" *ngIf="isLoggedIn"> Вы успешно авторизованы!</div>
         <button *ngIf="isLoggedIn" type="submit" class="btn" routerLink="/profile">  Перейти на главную страницу  </button>

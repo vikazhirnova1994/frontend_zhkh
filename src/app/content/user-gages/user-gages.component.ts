@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Observable} from "rxjs";
 import {StorageService} from "../../_services/storage.service";
-import {HttpClient, HttpParams} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {UserGagesModal} from "./user-gages.modal";
 import {UserGagesDataModal} from "../user-gages-data/user-gages-data.modal";
 
@@ -12,7 +11,6 @@ import {UserGagesDataModal} from "../user-gages-data/user-gages-data.modal";
 })
 export class UserGagesComponent implements OnInit {
 
-  public rowData$: Observable<any[]>;
   public userGageList: Array<UserGagesModal>;
   public userGageDataList: Array<UserGagesDataModal>;
   public userGageDataByIdList: Array<UserGagesDataModal>;
@@ -49,14 +47,6 @@ export class UserGagesComponent implements OnInit {
       (data: Array<UserGagesDataModal>) => {
         console.log("Array of UserGagesModal: ", data);
         this.userGageDataList = data
-      });
-  }
-
-  loadLastData(id: string) {
-    this.http.get<Array<UserGagesDataModal>>('http://localhost:8005/api/gage-data/user/'+id).subscribe(
-      (data: Array<UserGagesDataModal>) => {
-        console.log("Array of UserGagesModal: ", data);
-        this.userGageDataByIdList = data
       });
   }
 }

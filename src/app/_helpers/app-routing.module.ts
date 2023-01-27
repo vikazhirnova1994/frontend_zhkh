@@ -12,11 +12,13 @@ import {AllGageDataComponent} from "../content/all-gage-data/all-gage-data.compo
 import {AllUserComponent} from "../content/all-user/all-user.component";
 import {AllClaimsComponent} from "../content/all-claims/all-claims.component";
 import {AllContractComponent} from "../content/all-contract/all-contract.component";
+import {ResetPasswordComponent} from "../content/form/reset-password/reset-password.component";
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
   { path: 'login', component: LoginComponent },
   { path: 'sign-up', component: SignupComponent },
+  { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'sign-out', redirectTo: 'login'  },
   { path: 'profile', component: ProfileComponent },
   { path: 'user-gages', component: UserGagesComponent },

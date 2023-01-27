@@ -8,8 +8,6 @@ import {HttpErrorResponse} from "@angular/common/http";
 import {map} from "rxjs/operators";
 import {UserService} from "../../_services/user.service";
 import { UserPage } from 'src/app/_interface/user-page';
-import {TypeGage} from "../../_interface/type-gage";
-import {FlatPage} from "../../_interface/flat-page";
 
 @Component({
   selector: 'app-all-user',

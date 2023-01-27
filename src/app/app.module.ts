@@ -24,6 +24,7 @@ import { AllClaimsComponent } from './content/all-claims/all-claims.component';
 import { AllGageDataComponent } from './content/all-gage-data/all-gage-data.component';
 import { AllUserComponent } from './content/all-user/all-user.component';
 import { AllContractComponent } from './content/all-contract/all-contract.component';
+import { ResetPasswordComponent } from './content/form/reset-password/reset-password.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,6 +43,7 @@ import { AllContractComponent } from './content/all-contract/all-contract.compon
     AllGageDataComponent,
     AllUserComponent,
     AllContractComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     RouterOutlet,

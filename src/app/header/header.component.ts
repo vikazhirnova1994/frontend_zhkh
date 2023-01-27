@@ -40,13 +40,13 @@ export class HeaderComponent implements OnInit {
     this.authService.logout().subscribe({
       next: res => {
         console.log("authService logout", res);
-        this.storageService.clean();
-        this.router.navigate(['/login']);
-        // window.location.reload();
+       // window.location.reload();
       },
       error: err => {
         console.log(err);
       }
     });
+    this.storageService.clean();
+    this.router.navigate(['/login']);
   }
 }
