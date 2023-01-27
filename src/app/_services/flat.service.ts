@@ -4,7 +4,6 @@ import {environment} from "../../environments/environment";
 import {Observable} from "rxjs";
 import {ApiResponse} from "../_interface/api-response";
 import {FlatPage} from "../_interface/flat-page";
-import {TypeGage} from "../_interface/type-gage";
 import {GageAddress} from "../_interface/gage-address";
 
 const URL = 'http://localhost:8005/api/flat';
@@ -15,11 +14,6 @@ const URL = 'http://localhost:8005/api/flat';
 export class FlatService {
 
   constructor(private http: HttpClient) { }
-  baseUrl: string = environment.baseUrl;
-
- getAllFlat() {
-    return this.http.get<any>(this.baseUrl + '/api/flat/');
-  }
 
   flatData$ = (page: number = 0, size: number = 5): Observable<ApiResponse<FlatPage>> =>
     this.http.get<ApiResponse<FlatPage>>(URL + `?page=${page}&size=${size}`);

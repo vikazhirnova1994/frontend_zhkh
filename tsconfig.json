@@ -23,6 +23,9 @@
     "paths": {
       "exceljs": [
         "node_modules/exceljs/dist/exceljs.min"
+      ],
+      "file-saver-es": [
+        "@types/file-saver"
       ]
     },
     "lib": [

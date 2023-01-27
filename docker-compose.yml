@@ -1,0 +1,10 @@
+version: '3'
+services:
+  app:
+    build: ./
+    container_name: frontend
+    image: frontend
+    ports:
+      - "4200:4200"
+    command: >
+      bash -c "npm start"
