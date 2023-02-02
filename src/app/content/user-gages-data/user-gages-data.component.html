@@ -2,8 +2,8 @@
   <h3 class="fw-bold" style=" text-align: center;">Переданные показания</h3>
   <h5 style=" text-align: center; color: darkcyan">{{userAddress}}</h5>
   <br>
-  <h5 *ngIf=!canAddDate style="color: crimson" >  Передавать показания можно с 20  по 25 число каждого месяца</h5>
-  <div class="border" *ngIf=canAddDate>
+  <h5 *ngIf=canAddDate style="color: crimson" >  Передавать показания можно с 20  по 25 число каждого месяца</h5>
+  <div class="border" *ngIf=!canAddDate>
     <button class="btn btn-md btn-outline-primary" (click)="openModel()" >
       <i id="myicon" class="fa-regular fa-plus"></i> Добавить показания </button>
   </div>
@@ -89,33 +89,33 @@
   <div class="modal-body">
     <form [formGroup]="gageForm" (ngSubmit)="saveGageDate()" novalidate>
       <div class="form-group">
-        <p for="electricity">ИПУ для измерения электричества</p>
+        <p for="electricity">ИПУ для измерения электричества  </p>
         <div class="input-group">
-          <label for="electricity_day">День</label>
+          <label for="electricity_day">День  : </label>
           <input type="number" id="electricityDay" class="form-control" formControlName="electricityDay">
         </div>
         <div class="input-group">
-          <label for="electricity_night">Ночь</label>
+          <label for="electricity_night">Ночь  : </label>
           <input type="number" id="electricityNight" class="form-control" formControlName="electricityNight">
         </div>
       </div>
       <div class="form-group">
-        <p for="water">ИПУ для измерения воды</p>
+        <p for="water">ИПУ для измерения воды  </p>
         <div class="input-group">
-          <label for="water_hot">ГВС</label>
+          <label for="water_hot">ГВС  :  </label>
           <input type="number" id="waterHot" class="form-control" formControlName="waterHot"></div>
         <div class="input-group">
-          <label for="water_cool">ХВС</label>
+          <label for="water_cool">ХВС  : </label>
           <input type="number" id="waterCool" class="form-control" formControlName="waterCool"></div>
       </div>
       <div class="form-group">
-        <label for="energy">ИПУ для измерения тепла</label>
+        <label for="energy">ИПУ для измерения тепла  </label>
         <div class="input-group"><input type="number" id="energy" class="form-control" formControlName="energy"></div>
       </div>
     </form>
   </div>
   <div class="modal-footer">
-    <button data-dismiss="model" class="btn btn-info" (click)="saveGageDate()">Сохранить</button>
+    <button data-dismiss="model" class="btn btn-outline-primary" (click)="saveGageDate()">Сохранить</button>
     <button type="button" class="btn btn-dark" (click)="modal.close('Save click')">Закрыть</button>
   </div>
 </ng-template>

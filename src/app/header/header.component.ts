@@ -47,6 +47,5 @@ export class HeaderComponent implements OnInit {
       }
     });
     this.storageService.clean();
-    this.router.navigate(['/login']);
   }
 }

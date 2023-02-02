@@ -154,26 +154,26 @@
     <form [formGroup]="flatForm">
       <div class="mb-3">
         <label for="id" class="form-label">Идентификатор</label>
-        <input type="text" formControlName="id" class="form-control" id="id" aria-describedby="serialNumberHelp" readonly>
+        <input type="text" formControlName="id" class="form-control" id="id" aria-describedby="serialNumberHelp" readonly style="color:#8e9a9d;">
       </div>
       <div class="mb-3">
         <label for="cityUpdate" class="form-label">Город</label>
-        <input type="text" formControlName="city" class="form-control" id="cityUpdate" aria-describedby="serialNumberHelp" readonly>
+        <input type="text" formControlName="city" class="form-control" id="cityUpdate" aria-describedby="serialNumberHelp" readonly style="color:#8e9a9d;">
       </div>
       <div class="mb-3">
-        <label for="streetUpdate" class="form-label">Улица</label>
+        <label for="streetUpdate" class="form-label" style="color: rgba(75,255,255,0.6);"> Новая улица</label>
         <input type="text" formControlName="street" class="form-control" id="streetUpdate" >
       </div>
       <div class="mb-3">
-        <label for="houseNumberUpdate" class="form-label">Номер дома</label>
+        <label for="houseNumberUpdate" class="form-label" style="color: rgba(75,255,255,0.6);">Новый номер дома</label>
         <input type="number" formControlName="houseNumber" class="form-control" id="houseNumberUpdate" >
       </div>
       <div class="mb-3">
-        <label for="entranceUpdate" class="form-label">Номер подъезда</label>
+        <label for="entranceUpdate" class="form-label" style="color: rgba(75,255,255,0.6);">Новый номер подъезда</label>
         <input type="number" formControlName="entrance" class="form-control" id="entranceUpdate" >
       </div>
       <div class="mb-3">
-        <label for="flatNumberUpdate" class="form-label">Номер квартиры</label>
+        <label for="flatNumberUpdate" class="form-label" style="color: rgba(75,255,255,0.6);">Новый номер квартиры</label>
         <input type="number" formControlName="flatNumber" class="form-control" id="flatNumberUpdate" >
       </div>
     </form>
